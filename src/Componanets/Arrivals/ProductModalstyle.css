@@ -1,0 +1,141 @@
+.modal_main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal_content {
+  background-color: #fff;
+  border-radius: 5px;
+  display: flex;
+  width: 80%;
+  max-width: 900px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal_left {
+  flex: 1;
+  padding: 20px;
+
+}
+
+.modal_left img {
+  width: 100%;
+  height: 500px;
+}
+
+.modal_right {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.modal_right h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal_right p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.product_info {
+  display: grid;
+  row-gap: 20px;
+  margin-bottom: 10px;
+}
+
+
+
+.product_rating {
+  font-size: 20px;
+  font-weight: 500;
+  color: #bd744c;
+  padding: 10px 0px;
+}
+
+.prduct_value {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 0px;
+  display: flex;
+  column-gap: 20px;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.product_quantity:hover{
+  width: 135px;
+  box-shadow: 5px 5px 15px 2px #bd744c;
+  border-radius: 15px;
+  border: 1px solid #bd744c  ;
+  transition: 0.5s linear;
+}
+
+.product_price {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.product_quantity {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.product_dic{
+  font-size: 25px !important;
+  font-weight: 700 !important;
+  padding-right: 8px;
+  cursor: pointer;
+}
+
+.product_inc{
+  font-size: 25px !important;
+  font-weight: 700 !important;
+  padding-left: 8px;
+  cursor: pointer;
+}
+
+.product_inc:hover,
+.product_dic:hover{
+  color: #bd744c;
+}
+
+
+.product_buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.product_buttons button {
+  width: 180px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product_cart{
+  background-color: #bd744c;
+  color: #fff;
+}
+
+.product_buttons button:hover {
+  background-color: #bd744c;
+  color: #fff;
+  transition: 0.5s ease-in-out;
+}

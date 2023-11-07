@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .spring_div {
+    background-image: url("https://r-home.ru/upload/ammina.optimizer/jpg-webp/q80/upload/iblock/4e5/4fl13v8hmdlwk0aiosp16q02a4o01g40.webp");
+    background-position: center;
+    height: 450px;
+    background-size: cover;
+  }
+  
+  .text_div {
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  .line_div {
+    margin-top: 8px;
+    width: 30px;
+    border: 3px solid #fff;
+    border-radius: 30px;
+  }
+  
+  .online_div {
+    margin-bottom: 30px;
+    width: 100%;
+    background-image: url(https://avatars.mds.yandex.net/i?id=6e7c77e9e111fdc78184263e91d89b72316568a1-10132791-images-thumbs&n=13);
+    height: 208px;
+    background-repeat: no-repeat;
+    display: flex;
+    padding: 30px 0px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    color: #fff;
+    justify-content: flex-end;
+  }
+  
+  .lamp_div {
+    margin-bottom: 30px;
+    width: 100%;
+    background-image: url(https://www.sahilsarthak.com/Images/Katran%20Tables/Conch%20Shell%20Katran%20lamp.jpg);
+    height: 208px;
+    background-repeat: no-repeat;
+    display: flex;
+    padding: 30px 0px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
+  
+  .salemain_div {
+    margin-bottom: 30px;
+    width: 100%;
+    background-image: url(https://i.pinimg.com/736x/91/2d/0d/912d0d7127a29dc883e6c9e008c5b592.jpg);
+    height: 208px;
+    background-repeat: no-repeat;
+    display: flex;
+    padding: 30px 0px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+  }
+  
+  .sofa_div {
+    margin-bottom: 30px;
+    width: 100%;
+    background-image: url(https://avatars.mds.yandex.net/i?id=740e43da65470e5af0f8dbb75c74dfef930cbf8f-10207868-images-thumbs&n=13);
+    height: 208px;
+    background-repeat: no-repeat;
+    display: flex;
+    padding: 30px 0px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    text-align: center;
+    justify-content: flex-end;
+    color: #fff;
+  }
+  
+  .sale_div {
+    margin-left: auto;
+    margin-top: auto;
+    background-color: #262626;
+    padding: 16px 24px;
+  }
+  
+  .spring_div,
+  .online_div,
+  .lamp_div,
+  .salemain_div,
+  .sofa_div {
+    transition: transform 0.8s;
+  }
+  
+  .spring_div:hover,
+  .online_div:hover,
+  .lamp_div:hover,
+  .salemain_div:hover,
+  .sofa_div:hover {
+    transform: scale(1.1);
+  }
+  
+  .InfoBlock {
+    height: auto;
+    padding: 30px 0;
+  }
+  
+  .info__item1{
+    border-right: 1px solid #d9d9d9;
+    padding-right: 50px;
+    justify-content: flex-end;
+    height: 150px;
+  }
+
+  .info__item2{
+    border-right: 1px solid #d9d9d9;
+    height: 150px;
+    justify-content: center;
+  }
+
+  .info__item3{
+    height: 150px;
+    justify-content: flex-start;
+  }
+  
+  

@@ -1,0 +1,38 @@
+.chackbox_div {
+    font-weight: 500;
+    display: grid;
+    row-gap: 10px;
+}
+
+.slider_div {
+    width: 190px !important;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+
+}
+
+.rc-slider-handle {
+    border: solid 2px #bd744c;
+    background-color: #bd744c !important;
+    touch-action: none !important;
+
+}
+
+.rc-slider-handle:hover {
+    background-color: #bd744c!important;
+    border-color: #bd744c;
+}
+
+
+.rc-slider-handle:active {
+    border-color: #bd744c !important;
+    box-shadow: 0 0 5px #bd744c !important;
+    cursor: pointer !important;
+}
+
+.rc-slider-track {
+    background-color: #bd744c !important;
+}
+
+

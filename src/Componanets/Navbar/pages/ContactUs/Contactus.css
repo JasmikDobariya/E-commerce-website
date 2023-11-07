@@ -1,0 +1,40 @@
+.form_div {
+    display: flex !important;
+    flex-direction: column;
+
+
+
+}
+
+.emil_div {
+    margin-right: 120px;
+    justify-content: first baseline !important;
+}
+
+.input_div,
+.massaged-text {
+    border: 1px solid rgb(124, 124, 124) !important;
+    border-radius: 10px;
+}
+
+.input_div:focus-visible,
+.massaged-text :focus-visible {
+
+    outline-color: #bd744c !important;
+}
+
+.mass_btn {
+    padding: 15px;
+    width: 180px;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: #bd744c;
+    border: none !important;
+    color: black;
+}
+
+.mass_btn:hover {
+    color: white;
+    background-color: transparent rgb(1, 1, 1) !important;
+    transition: 0.5s all linear;
+}

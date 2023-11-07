@@ -1,0 +1,117 @@
+.list_div {
+    text-decoration: none !important;
+    list-style: none !important;
+    display: flex;
+    gap: 40px;
+    margin-bottom: 0px;
+}
+
+.main_option {
+    padding: 16px;
+    cursor: pointer;
+    margin: 7px;
+}
+
+.list_div a {
+    text-decoration: none !important;
+    color: #3c484f;
+    background-color: #fff !important;
+}
+
+.main_div {
+    height: 60px !important;
+    font-size: 16px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 35px;
+    left: 0;
+    z-index: 1;
+}
+
+.logo_div {
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.option-button {
+    padding: 15px;
+    width: 200px;
+    border: none !important;
+    text-align: start;
+    background-color: #fff !important;
+}
+
+.option-button a {
+    text-decoration: none;
+    display: block;
+    color: #3c484f;
+}
+
+.option-button a:hover {
+    color: #bd744c;
+    font-weight: 700;
+}
+
+.list_div li.dropdown .main_option::after {
+    content: "";
+    background: url('../assests/icons8-expand-arrow-24.png') no-repeat center;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.svg_div a {
+    color: black !important;
+    cursor: pointer !important;
+}
+
+.svg_div a:hover {
+    color: #bd744c !important;
+}
+
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+
+    .list_div {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        z-index: 1;
+        flex-direction: column;
+    }
+
+    .list_div.open {
+        display: flex;
+    }
+
+    .list_div li {
+        text-align: center;
+        width: 100%;
+    }
+
+    .svg_div {
+        display: none;
+    }
+}

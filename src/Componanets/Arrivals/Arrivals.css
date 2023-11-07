@@ -1,0 +1,207 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.titel {
+    color: black;
+}
+
+.card {
+    border: none !important;
+    border-radius: 0px !important;
+}
+
+.card-text,
+.img_div {
+    cursor: pointer;
+
+}
+
+
+.card {
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-text {
+    transform: scale(1.1);
+    color: #bd744c;
+    transition: transform 0.3s ease;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn {
+    padding: 1em 2em;
+    background-color: #bd744c;
+    border: 1px solid #bd744c !important;
+    user-select: none;
+    cursor: pointer;
+    font-size: 20px;
+    text-transform: uppercase;
+    transition: all 0.5s linear;
+    color: #fff;
+    border-radius: 0px !important;
+    width: 200px !important;
+    padding: 10px !important;
+
+}
+
+.btn:hover {
+    background-color: #bd744c;
+    border-radius: 0;
+    scale: 1.1;
+    color: #fff !important;
+}
+
+.btn::after {
+    content: '';
+    background: #bd744c;
+    width: 0;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: -1;
+}
+
+.btn:hover::after {
+    width: 100%;
+}
+
+
+.itemstock_div {
+    background-image: url("https://flatlogic-ecommerce.herokuapp.com/_next/static/media/promo.2023da94da583bfebb67ae1fe135d47b.png");
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 500px;
+    background-size: contain;
+    background-position: 100%;
+    background-color: #f5f5f5;
+
+}
+
+.stock_div {
+    padding: 80px;
+}
+
+.stock_titel {
+    font-weight: 700;
+}
+
+.stock_dis {
+    font-weight: 800;
+    font-size: 50px;
+    font-family: Montserrat, sans-serif;
+}
+
+.border_div {
+    border: 5px solid #bd744c;
+    width: 64px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+}
+
+.stock_item {
+    display: flex;
+    gap: 15px;
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.stock_days,
+.stock_hours,
+.stock_mins,
+.stock_secs {
+    border: 1px solid black;
+    padding: 15px;
+    font-size: 15px;
+
+}
+
+p {
+    margin: 0px !important;
+}
+
+
+.img_div {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image-container {
+    flex: 1;
+}
+
+.icons {
+    position: absolute;
+    top: 25%;
+    right: 10px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: black !important;
+}
+
+.wishlist_icon:hover {
+    color: #bd744c !important;
+}
+
+.zoom_icon:hover {
+    color: #bd744c !important;
+}
+
+.cart_icon:hover {
+    color: #bd744c !important;
+}
+
+.img_div:hover .icons {
+    opacity: 1;
+}
+
+.addtocart,
+.notification {
+    position: fixed;
+    top: 60px;
+    right: 20px;
+    background-color: green;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.addtocart.show,
+.notification.show {
+    opacity: 1;
+}
+
+
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 0px;
+        text-align: center;
+
+    }
+
+    .stock_div {
+        padding: 30px;
+    }
+}

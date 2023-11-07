@@ -1,0 +1,32 @@
+/* AboutUs.css */
+
+.about-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.about_head {
+  color: #bd744c;
+  text-decoration: underline !important;
+  font-weight: 700 !important;
+}
+
+.about-images {
+  flex: 1;
+  display: grid;
+  gap: 30px !important;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.about-item {
+  /* margin: 20px; */
+  padding-bottom: 30px;
+  padding-top: 20px;
+  border-bottom: 1px solid black;
+  font-family: monospace;
+}

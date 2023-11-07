@@ -1,0 +1,49 @@
+
+
+  
+  .title-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .title-list-item {
+    margin-bottom: 10px;
+  }
+  
+  .title-list-item h4 {
+    cursor: pointer;
+    transition: color 0.3s;
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom: 15px;
+  }
+  
+  .title-list-item h4.active {
+    color: #bd744c;
+  }
+  
+  .detail-section {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+  }
+  
+  .detail-section h4 {
+    font-size: 24px;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .detail-section h6 {
+    font-size: 16px;
+    color: #777;
+  }
+  
+  .detail-section p {
+    font-size: 18px;
+    color: #444;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  

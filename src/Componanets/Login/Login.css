@@ -1,0 +1,50 @@
+.login {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  color: rgb(242, 164, 125);
+  height: 700px;
+  background-image: url("https://tataev-market.ru/upload/resize_cache/iblock/109/sxma7vob42yblm00c27wthw0foe0yapv/1000_1000_1/florya12757-Large.jpeg");
+}
+
+.form_main_div {
+  border: 2px solid rgb(242, 164, 125) !important;
+  border-radius: 10px;
+  padding: 15px;
+  transition: transform 0.5s ease-in-out;
+  transform: none;
+}
+
+.show-form {
+  transform: rotateX(0deg) !important;
+}
+
+.hide-form {
+  transform: rotateY(360deg) !important;
+}
+
+.in_div {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid bisque;
+  border-radius: 5px;
+  background-color: rgb(242, 164, 125);
+}
+
+.battn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.battn:hover {
+  background-color: #0056b3;
+}
