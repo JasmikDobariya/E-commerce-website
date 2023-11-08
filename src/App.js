@@ -15,6 +15,7 @@ import Errorpage from "./Componanets/Navbar/pages/404/Errorpage";
 import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
+import Products from "./Componanets/Arrivals/Products";
 
 function App() {
   return (
@@ -34,6 +35,8 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/Buy_Now" element={<Buy_Now />} />
+        <Route path="/products/:id" element={<Products />} />
+
 
       </Routes>
       <Footer />

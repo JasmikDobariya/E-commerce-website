@@ -7,9 +7,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ProductModal from "./ProductModal";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import  {addItemToWishlist}   from "../../Redux/Slice/WishlistSlice.js"; 
-import  {addToCart}  from "../../Redux/Slice/CartSlice.js"; 
-
+import { addItemToWishlist } from "../../Redux/Slice/WishlistSlice.js";
+import { addToCart } from "../../Redux/Slice/CartSlice.js";
 
 const Arrivals = () => {
   const dispatch = useDispatch();
@@ -36,13 +35,10 @@ const Arrivals = () => {
   };
 
   const HandalWishlist = (item) => {
-  
     showNotificationMessage();
     dispatch(addItemToWishlist(item));
-    console.log(item)
+    console.log(item);
   };
-
-  
 
   const openProductModal = (product) => {
     setSelectedProduct(product);
@@ -62,7 +58,6 @@ const Arrivals = () => {
   };
 
   const HandalCart = (item) => {
-
     dispatch(addToCart(item));
     addedincartmassge();
     console.log(item);
@@ -89,13 +84,15 @@ const Arrivals = () => {
               <div className="card">
                 <div className="img_div">
                   <div className="image-container">
-                    <img
-                      src={item.img}
-                      className="card-img-top"
-                      alt="/"
-                      height={250}
-                      width={200}
-                    />
+                    <Link to={`/products/${index}`}>
+                      <img
+                        src={item.img}
+                        className="card-img-top"
+                        alt="/"
+                        height={250}
+                        width={200}
+                      />
+                    </Link>
                   </div>
                   <div className="icons">
                     <div className="wishlist_icon">

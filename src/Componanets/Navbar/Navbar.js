@@ -6,6 +6,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MenuIcon from "@mui/icons-material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Navbar.css";
+import logo from "../assests/logo.png"
 
 const options = [
   {
@@ -39,7 +40,9 @@ const Navbar = () => {
         <div className="d-flex justify-content-between align-items-center main_div">
           <div className="fs-2 fw-bold text-black">
             <Link to="/" className="logo_div">
-              <span>Jasmin</span>
+              <div>
+                <img src={logo} alt="/" height={70} width={130} />
+              </div>
             </Link>
           </div>
           <div className="menu-icon" onClick={toggleMenu}>
@@ -74,7 +77,7 @@ const Navbar = () => {
               </Link>
             </div>
             <div>
-              <Link to="/profile">
+              <Link to="/login">
                 <PersonOutlineIcon />
               </Link>
             </div>

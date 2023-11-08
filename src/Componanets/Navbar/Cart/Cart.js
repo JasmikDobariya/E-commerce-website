@@ -11,6 +11,13 @@ const Cart = () => {
     dispatch(deleteItemFromCart(index));
   };
 
+  const subtotal = cart.reduce(
+    (total, item) => total + parseFloat(item.prize),
+    0
+  );
+
+  console.log(subtotal);
+
   return (
     <section>
       <div className="container">
@@ -75,8 +82,8 @@ const Cart = () => {
                 <h3>Cart Total</h3>
               </div>
               <div className="d-flex gap-3">
-                <h6>Subtotal:</h6>
-                <h6>07$</h6>
+                <h6>Subtotal :</h6>
+                <h6>{`${subtotal}`}$</h6>
               </div>
               <hr />
               <div className="d-flex gap-3">
@@ -91,12 +98,12 @@ const Cart = () => {
               </div>
               <hr />
               <div className="d-flex gap-3">
-                <h6>Total:</h6>
-                <h6>70$</h6>
+                <h5>Total :</h5>
+                <h5 className="fw-1">{`${subtotal}`}$</h5>
               </div>
             </div>
 
-            <button className="col-12 p-3">Cack out</button>
+            <button className="col-12 p-3">Check out</button>
           </div>
         </div>
       </div>
