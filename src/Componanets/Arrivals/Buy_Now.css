@@ -13,5 +13,24 @@
     gap: 10px;
     align-items: center;
     justify-content: center;
+    border: 1px solid black;
 }
 
+.payment_button:active{
+    border: 1px solid #bd744c !important;
+}
+
+a {
+    text-decoration: none !important;
+
+}
+
+.goto_login {
+    color: #bd744c !important;
+}
+
+.pymet_sub_btn{
+    background-color: #bd744c;
+    border: none;
+    color: #f5f5f5;
+}

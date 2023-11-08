@@ -33,3 +33,8 @@ table td{
     margin: 0px !important;
     margin-top: 20px !important;
 }
+
+.check_out{
+    background-color: #bd744c;
+    border: none;
+}

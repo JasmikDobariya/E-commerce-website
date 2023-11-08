@@ -2,6 +2,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCart } from "../../../Redux/Slice/CartSlice";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -102,8 +103,9 @@ const Cart = () => {
                 <h5 className="fw-1">{`${subtotal}`}$</h5>
               </div>
             </div>
-
-            <button className="col-12 p-3">Check out</button>
+            <Link to="/buy_now">
+              <button className="col-12 p-3 check_out">Check out</button>
+            </Link>
           </div>
         </div>
       </div>

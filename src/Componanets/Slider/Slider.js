@@ -3,7 +3,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Slider.css";
 import Slider from "react-slick";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Link } from "react-router-dom";
 
 const ImageSlider = () => {
   const slides = [
@@ -13,8 +14,7 @@ const ImageSlider = () => {
       text: ["CHAIR", "get all", "THE GOOD STUFF"],
     },
     {
-      image:
-        "https://welldone.co.th/wp-content/uploads/2020/12/011.jpg",
+      image: "https://welldone.co.th/wp-content/uploads/2020/12/011.jpg",
       text: ["CHAIR", "get all", "THE GOOD STUFF"],
     },
     {
@@ -47,13 +47,14 @@ const ImageSlider = () => {
               <p className=" fw-bold m-1">{slide.text[0]}</p>
               <h2 className="fw-light">{slide.text[1]}</h2>
               <h1> {slide.text[2]}</h1>
-
-              <div>
-                <a href="/" className="btn yellow">
-                  <span className="bt">Learn More</span>
-                  <ArrowForwardIcon className="ion-icon" />
-                </a>
-              </div>
+              <Link to="/shops">
+                <div>
+                  <a href="/" className="btn yellow">
+                    <span className="bt">Learn More</span>
+                    <ArrowForwardIcon className="ion-icon" />
+                  </a>
+                </div>
+              </Link>
             </span>
           </div>
         ))}
