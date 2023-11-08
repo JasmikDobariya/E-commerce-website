@@ -107,3 +107,11 @@
   background-color: transparent !important;
   font-weight: 700;
 }
+
+.css-ryrseu-MuiRating-root{
+  color: #bd744c !important;
+}
+
+.submitted-image{
+  border-radius: 50%;
+}

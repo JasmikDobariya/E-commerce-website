@@ -6,12 +6,15 @@ import { Link, useParams } from "react-router-dom";
 import "./Products.css";
 import ReactImageMagnify from "react-image-magnify";
 import FeedbackForm from "./FeedbackForm";
+import Rating from "@mui/material/Rating";
 
 const Products = () => {
   const { id } = useParams();
   const [Counter, setCounter] = useState(1);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [selectedCardItem, setSelectedCardItem] = useState(null);
+  const [submittedData, setSubmittedData] = useState(null);
+  const [feedbackEntries, setFeedbackEntries] = useState([]);
 
   const inc = () => {
     setCounter(Counter + 1);
@@ -25,6 +28,15 @@ const Products = () => {
     setSelectedCardItem(cardItem);
     setShowFeedbackForm(true);
   };
+
+  // const handleFormSubmit = (formData) => {
+  //   setSubmittedData(formData);
+  // };
+
+  const handleFormSubmit = (formData) => {
+    setFeedbackEntries((prevEntries) => [...prevEntries, formData]);
+  };
+
   return (
     <section>
       <div className="container">
@@ -103,9 +115,35 @@ const Products = () => {
                 setSelectedCardItem(null);
               }}
               cardItem={selectedCardItem}
+              onFormSubmit={handleFormSubmit}
             />
           )}
         </div>
+        {feedbackEntries.map((feedback, index) => (
+          <div key={index} className="d-flex  gap-4 py-3">
+            {feedback.image && (
+              <img
+                src={URL.createObjectURL(feedback.image)}
+                alt="Submitted Image"
+                className="submitted-image"
+                height={150}
+                width={150}
+              />
+            )}
+            <div className="flex-column text-capitalize">
+              <h3 className="py-2 p-0">
+                {feedback.firstName} {feedback.lastName}
+              </h3>
+              <Rating
+                name="rating"
+                value={feedback.rating}
+                precision={0.5}
+                readOnly
+              />
+              <h6 className="py-2"> {feedback.message}</h6>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

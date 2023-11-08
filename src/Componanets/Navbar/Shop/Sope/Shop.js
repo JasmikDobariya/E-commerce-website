@@ -10,12 +10,13 @@ import ProductModal from "../../../Arrivals/ProductModal";
 import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../../../Redux/Slice/CartSlice";
+import Products from "../../../Arrivals/Products.js";
+import { Link } from "react-router-dom";
 
 const Shop = () => {
-  
   const brand = [["Poliform", "Roche Bobois", "Edra", "Kartell"]];
   const availab = [["On Stock", "Out of Stock"]];
-  
+
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
@@ -67,7 +68,7 @@ const Shop = () => {
 
   const filteredCards = cardimg.filter((item) => {
     if (selectedCategories.length === 0) {
-      return true; 
+      return true;
     }
     return selectedCategories.includes(item.title);
   });
@@ -156,13 +157,15 @@ const Shop = () => {
                     <div className="card">
                       <div className="img_div">
                         <div className="image-container">
-                          <img
-                            src={item.img}
-                            className="card-img-top"
-                            alt="/"
-                            height={250}
-                            width={200}
-                          />
+                          <Link to={`/products/${index}`}>
+                            <img
+                              src={item.img}
+                              className="card-img-top"
+                              alt="/"
+                              height={250}
+                              width={200}
+                            />
+                          </Link>
                         </div>
                         <div className="icons">
                           <div className="wishlist_icon">

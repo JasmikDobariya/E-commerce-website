@@ -199,7 +199,7 @@ const cardimg = [
     ],
   },
   {
-    id: 45,
+    id: 14,
     img: "https://i.pinimg.com/736x/d7/c4/a8/d7c4a89380c3de009c2d1d42dd5f2ee0--tree-slices-wood-slices.jpg",
     title: "Decorestion",
     dis: "Decorestion",
@@ -213,7 +213,7 @@ const cardimg = [
     ],
   },
   {
-    id: 6,
+    id: 15,
     img: "https://cs5.livemaster.ru/storage/2a/ac/671d602e4cc99ebea499c154e6pm--kitchen-utensils-gift-set-for-the-kitchen-4-piece.jpg",
     title: "Kitchen",
     dis: "Decorestion",
@@ -227,7 +227,7 @@ const cardimg = [
     ],
   },
   {
-    id: 7,
+    id: 16,
     img: "https://podarki-odessa.com/image/cache/catalog/originalnie-podarki/nabory-piknik/piknik-0503-028-a-750x750.jpg",
     title: "Furniture",
     dis: "Wood Baskets",
@@ -240,6 +240,34 @@ const cardimg = [
       <StarBorderIcon />,
     ],
   },
+  {
+    id: 17,
+    img: "https://static.sashe.sk/avatars/b/372282-1515795868.jpg",
+    title: "Wood Toy",
+    dis: "Toy",
+    prize: "120$",
+    rating: [
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+    ],
+  }, {
+    id: 18,
+    img: "https://i.ytimg.com/vi/mef7zy6XThQ/maxresdefault.jpg",
+    title: "Wood Toy",
+    dis: "Toy",
+    prize: "439$",
+    rating: [
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+      <StarBorderIcon />,
+    ],
+  },
+
 ];
 
 export default cardimg;

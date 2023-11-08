@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./FeedbackForm.css";
 import Rating from "@mui/material/Rating";
-import { Button, TextareaAutosize, TextField } from "@mui/material";
+import { TextareaAutosize } from "@mui/material";
 
-const FeedbackForm = ({ onClose, cardItem }) => {
-  console.log(cardItem);
+const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,18 +20,19 @@ const FeedbackForm = ({ onClose, cardItem }) => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onClose();
+    onFormSubmit(formData);
+    console.log(formData);
+  };
+
   const handleImageChange = (e) => {
     const imageFile = e.target.files[0];
     setFormData({
       ...formData,
       image: imageFile,
     });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    onClose();
   };
 
   return (
@@ -62,27 +62,38 @@ const FeedbackForm = ({ onClose, cardItem }) => {
         <form onSubmit={handleSubmit}>
           <div class="row">
             <div class="col">
-              <label htmlFor="First name" className="fw-semibold">First name</label>
+              <label htmlFor="firstName" className="fw-semibold">
+                First name
+              </label>
               <input
                 type="text"
+                name="firstName"
                 class="form-control"
                 placeholder="First name"
                 aria-label="First name"
+                value={formData.firstName}
+                onChange={handleInputChange}
               />
             </div>
             <div class="col">
-              <label htmlFor="Last name" className="fw-semibold">Last name</label>
-
+              <label htmlFor="lastName" className="fw-semibold">
+                Last name
+              </label>
               <input
                 type="text"
+                name="lastName"
                 class="form-control"
                 placeholder="Last name"
                 aria-label="Last name"
+                value={formData.lastName}
+                onChange={handleInputChange}
               />
             </div>
           </div>
           <div className="pt-2">
-          <label htmlFor="Message" className="fw-semibold">Message</label>
+            <label htmlFor="Message" className="fw-semibold">
+              Message
+            </label>
             <TextareaAutosize
               name="message"
               value={formData.message}
@@ -117,9 +128,15 @@ const FeedbackForm = ({ onClose, cardItem }) => {
               onChange={handleImageChange}
             />
           </div>
-          <Button className="leave_btn" variant="contained" type="submit">
-            Submit
-          </Button>
+          <div className="py-2">
+            <button
+              className="leave_btn col-12"
+              variant="contained"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

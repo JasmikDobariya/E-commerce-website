@@ -45,12 +45,18 @@
   }
   
   .leave_btn {
-    background-color: #007bff;
-    color: white;
+    color: black;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .leave_btn:hover{
+    background-color: #bd744c;
+    color: #ccc;
   }
 
   .css-iljtu2-MuiRating-root{
