@@ -47,12 +47,10 @@ const ImageSlider = () => {
               <p className=" fw-bold m-1">{slide.text[0]}</p>
               <h2 className="fw-light">{slide.text[1]}</h2>
               <h1> {slide.text[2]}</h1>
-              <Link to="/shops">
+              <Link to="/shops" className="btn yellow">
                 <div>
-                  <a href="/" className="btn yellow">
-                    <span className="bt">Learn More</span>
-                    <ArrowForwardIcon className="ion-icon" />
-                  </a>
+                  <span className="bt">Learn More</span>
+                  <ArrowForwardIcon className="ion-icon" />
                 </div>
               </Link>
             </span>

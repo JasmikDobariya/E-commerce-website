@@ -99,7 +99,7 @@ const Footer = () => {
             <div className="col-sm-12 col-md-9 col-xl-7">
               <div className="row mt-3">
                 {footer.map((section, sectionIndex) => (
-                  <div key={sectionIndex} className="col-12 col-sm-6 col-md-4">
+                  <div key={sectionIndex} className="col-12 col-sm-12 col-md-4">
                     <div className="flex-section">
                       {section.titel.map((title, titleIndex) => (
                         <div key={titleIndex} className="flex-item ">

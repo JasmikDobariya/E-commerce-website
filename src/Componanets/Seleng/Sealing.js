@@ -78,7 +78,7 @@ const Sealing = () => {
         <div className="h-100 container">
           <div className="row">
             <div className="col-12 col-md-4">
-              <div className="d-flex align-items-center info__item1">
+              <div className="d-flex align-items-center justify-content-center info__item1">
                 <img src={imgshiping} alt="/" className="m-3" />
                 <div>
                   <h5 className="fw-bold text-uppercase">free shipping</h5>
@@ -96,7 +96,7 @@ const Sealing = () => {
               </div>
             </div>
             <div className="col-12 col-md-4">
-              <div className="d-flex align-items-center info__item3">
+              <div className="d-flex align-items-center justify-content-center info__item3">
                 <img src={imgrefund} alt="/" className="m-3" />
                 <div>
                   <h5 className="fw-bold text-uppercase">easy returns</h5>

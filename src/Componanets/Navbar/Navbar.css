@@ -77,13 +77,19 @@
     cursor: pointer !important;
 }
 
-.svg_div a:hover {
+.svg_div a:hover  {
     color: #bd744c !important;
 }
 
 .menu-icon {
     display: none;
     cursor: pointer;
+}
+
+.badge{
+    
+    color: #bd744c !important;
+    font-weight: 700 !important;  
 }
 
 @media (max-width: 768px) {

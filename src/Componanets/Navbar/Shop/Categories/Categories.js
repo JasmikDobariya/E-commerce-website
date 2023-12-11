@@ -1,12 +1,35 @@
 import "./Categories.css";
-import cardimg from "../../../Arrivals/ArrivalsArray";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useFirebase } from "../../../../Creatcontext/Firebase";
 
 const Categories = () => {
+  const [products, setProducts] = useState([]);
+  const [urls, setUrls] = useState([]);
+  const firebase = useFirebase();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsData = await firebase.productlist();
+      setProducts(productsData.docs);
+
+      const imageUrls = await Promise.all(
+        productsData.docs.map(async (product) => {
+          const imageUrl = product.data().imageUrl;
+          const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
+          return imageUrlDownloaded;
+        })
+      );
+
+      setUrls(imageUrls);
+    };
+
+    fetchProducts();
+  }, [firebase]);
+
   const settings = {
     dots: false,
     infinite: true,
@@ -81,15 +104,15 @@ const Categories = () => {
         <h3 className="header">You may also like:</h3>
         <div className="con_div">
           <Slider {...settings}>
-            {cardimg.map((item) => (
-              <div key={item.id} >
-                <img src={item.img} alt={item.alt} className="img" />
-                <h6 className="description fw-bold">{item.title}</h6>
-                <h6 className="description ">{item.dis}</h6>
-                <h6 className="description fw-bold">{item.prize}</h6>
-
+            {products.map((item , index) => (
+              <div key={item.id}>
+                <img src={urls[index]} alt={item.alt} className="img" />
+                <h6 className="description fw-bold">{item.data().title}</h6>
+                <h6 className="description ">{item.data().dis}</h6>
+                <h6 className="description fw-bold">{item.data().prize}</h6>
               </div>
             ))}
+            {console.log("product" , products)}
           </Slider>
         </div>
       </div>

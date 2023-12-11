@@ -1,23 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
-
 const CartSlice = createSlice({
-    name: "cart",
-    initialState: [],
-    reducers: {
-      addToCart: (state, action) => {
-        state.push(action.payload);
-      },
-      deleteItemFromCart: (state, action) => {
-        return state.filter((item, index) => index !== action.payload);
-      },
+  name: "cart",
+  initialState: [],
+  reducers: {
+    addToCart: (state, action) => {
+      state.push(action.payload);
     },
-    serialize: {
-      payload: ["rating"],
+    deleteItemFromCart: (state, action) => {
+      return state.filter((item, index) => index !== action.payload);
     },
-  });
+  },
+});
 
-  export const { addToCart, deleteItemFromCart } = CartSlice.actions;
+export const { addToCart, deleteItemFromCart } = CartSlice.actions;
 
-  export default  CartSlice.reducer
+export default CartSlice.reducer;

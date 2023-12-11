@@ -16,7 +16,7 @@
     border: 1px solid black;
 }
 
-.payment_button:active{
+.payment_button:active {
     border: 1px solid #bd744c !important;
 }
 
@@ -29,8 +29,15 @@ a {
     color: #bd744c !important;
 }
 
-.pymet_sub_btn{
+.pymet_sub_btn {
     background-color: #bd744c;
     border: none;
     color: #f5f5f5;
+}
+
+
+
+.payment_button.active {
+    background-color: #bd744c;
+    color: #fff;
 }

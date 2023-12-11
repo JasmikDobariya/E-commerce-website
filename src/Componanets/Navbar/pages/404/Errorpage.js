@@ -8,8 +8,8 @@ const Errorpage = () => {
       <div className="container effect_div">
         <h1 className="text-center pt-5">404 Page Not Found</h1>
         <div id="wrapper">
-          <Link to="/">
-            <a href="#" className="my-super-cool-btn">
+          <Link to="/" className="my-super-cool-btn">
+           
               <div class="dots-container">
                 <div class="dot"></div>
                 <div class="dot"></div>
@@ -17,7 +17,7 @@ const Errorpage = () => {
                 <div class="dot"></div>
               </div>
               <span>Go To Home</span>
-            </a>
+          
           </Link>
         </div>
       </div>

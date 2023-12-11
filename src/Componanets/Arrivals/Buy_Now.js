@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import "./Buy_Now.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link } from "react-router-dom";
+import { useFirebase } from "../../Creatcontext/Firebase";
 
 const Buy_Now = () => {
   const payment = ["Credit Card", "PayPal", "Cash", "Other"];
+
+  const firebase = useFirebase();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -21,6 +24,12 @@ const Buy_Now = () => {
     cvv: "",
   });
 
+  const [selectedPayment, setSelectedPayment] = useState(null);
+
+  const handlePaymentClick = (index) => {
+    setSelectedPayment(index);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,8 +38,17 @@ const Buy_Now = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await firebase.handlelisting(
+      formData.firstName,
+      formData.lastName,
+      formData.address,
+      formData.address2,
+      formData.city,
+      formData.state,
+      formData.zip
+    );
   };
 
   return (
@@ -38,7 +56,10 @@ const Buy_Now = () => {
       <div className="container">
         <div className="py-4">
           <h6 className="haed_tag">
-            Returning customer? <Link to="/login"> <a href="/" className="goto_login" >Click here to Login</a></Link>
+            Returning customer?
+            <Link to="/login" className="goto_login">
+              Click here to Login
+            </Link>
           </h6>
         </div>
         <div className="my-5">
@@ -51,8 +72,18 @@ const Buy_Now = () => {
         <div className="d-flex justify-content-around my-5">
           {payment.map((item, index) => (
             <div key={index}>
-              <button className="payment_button">
-                <FavoriteBorderIcon style={{ fontSize: "40",color:"#bd744c"  } } />
+              <button
+                className={`payment_button ${
+                  selectedPayment === index ? "active" : ""
+                }`}
+                onClick={() => handlePaymentClick(index)}
+              >
+                <FavoriteBorderIcon
+                  style={{
+                    fontSize: "40",
+                    color: selectedPayment === index ? "#fff" : "#bd744c",
+                  }}
+                />
                 <h3>{item}</h3>
               </button>
             </div>
@@ -60,7 +91,7 @@ const Buy_Now = () => {
         </div>
         <div className="row">
           <div className="col-8">
-            <form className="row g-3">
+            <form className="row g-3" onSubmit={handleSubmit}>
               <div className="col-md-6">
                 <label htmlFor="firstName" className="form-label">
                   First Name
@@ -131,7 +162,7 @@ const Buy_Now = () => {
               <div className="col-md-4">
                 <label className="form-label">State</label>
                 <input
-                  className="form-select"
+                  className="form-select p-2"
                   id="state"
                   name="state"
                   value={formData.state}
@@ -140,7 +171,7 @@ const Buy_Now = () => {
               </div>
               <div className="col-md-2">
                 <label htmlFor="zip" className="form-label">
-                  Zip
+                  PinCode
                 </label>
                 <input
                   type="text"
@@ -151,77 +182,84 @@ const Buy_Now = () => {
                   onChange={handleInputChange}
                 />
               </div>
+              <button type="submit" className="w-100 p-3 fw-bold pymet_sub_btn">
+                Submit
+              </button>
             </form>
           </div>
           <div className="col-4">
-            <form onSubmit={handleSubmit}>
-              <label className="py-2 w-100">
-                Card Number:
-                <input
-                  type="text"
-                  name="cardNumber"
-                  value={formData.cardNumber}
-                  onChange={handleInputChange}
-                  placeholder="Enter card number"
-                />
-              </label>
-              <label className="py-2 w-100">
-                Cardholder's Name:
-                <input
-                  type="text"
-                  name="cardName"
-                  value={formData.cardName}
-                  onChange={handleInputChange}
-                  placeholder="Enter cardholder's name"
-                />
-              </label>
-              <label className="d-grid gap-2">
-                Expiry Date:
-                <select
-                  name="expiryMonth"
-                  value={formData.expiryMonth}
-                  onChange={handleInputChange}
-                  className="p-2 m-0 rounded-2"
-                >
-                  <option value="" disabled>
-                    Select Month
-                  </option>
-                  <option value="01">January</option>
-                  <option value="02">February</option>
-                </select>
-                <select
-                  name="expiryYear"
-                  value={formData.expiryYear}
-                  onChange={handleInputChange}
-                  className="p-2 m-0 rounded-2"
-                >
-                  <option value="" disabled>
-                    Select Year
-                  </option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                </select>
-              </label>
-              <label className="d-grid py-2">
-                CVV:
-                <input
-                  type="text"
-                  name="cvv"
-                  value={formData.cvv}
-                  onChange={handleInputChange}
-                  placeholder="Enter CVV"
-                  maxLength={3}
-                />
-              </label>
-              
+            <form>
+              {selectedPayment === 0 && (
+                <>
+                  <label className="py-2 w-100">
+                    Card Number:
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      value={formData.cardNumber}
+                      onChange={handleInputChange}
+                      placeholder="Enter card number"
+                    />
+                  </label>
+                  <label className="py-2 w-100">
+                    Cardholder's Name:
+                    <input
+                      type="text"
+                      name="cardName"
+                      value={formData.cardName}
+                      onChange={handleInputChange}
+                      placeholder="Enter cardholder's name"
+                    />
+                  </label>
+                  <label className="d-grid gap-2">
+                    Expiry Date:
+                    <select
+                      name="expiryMonth"
+                      value={formData.expiryMonth}
+                      onChange={handleInputChange}
+                      className="p-2 m-0 rounded-2"
+                    >
+                      <option value="" disabled>
+                        Select Month
+                      </option>
+                      <option value="01">January</option>
+                      <option value="02">February</option>
+                    </select>
+                    <select
+                      name="expiryYear"
+                      value={formData.expiryYear}
+                      onChange={handleInputChange}
+                      className="p-2 m-0 rounded-2"
+                    >
+                      <option value="" disabled>
+                        Select Year
+                      </option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                    </select>
+                  </label>
+                  <label className="d-grid py-2">
+                    CVV:
+                    <input
+                      type="text"
+                      name="cvv"
+                      value={formData.cvv}
+                      onChange={handleInputChange}
+                      placeholder="Enter CVV"
+                      maxLength={3}
+                    />
+                  </label>
+                  <button
+                    type="submit"
+                    className="w-100 p-3 fw-bold pymet_sub_btn"
+                  >
+                    Submit
+                  </button>
+                </>
+              )}
             </form>
           </div>
         </div>
-        <div className="py-3 ">
-                <button type="submit" className="w-100 p-3 fw-bold pymet_sub_btn">
-                  Submit
-                </button>
-              </div>
       </div>
     </section>
   );

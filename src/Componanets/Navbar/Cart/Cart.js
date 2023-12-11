@@ -3,21 +3,65 @@ import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCart } from "../../../Redux/Slice/CartSlice";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useFirebase } from "../../../Creatcontext/Firebase";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 
 const Cart = () => {
+  const [cartImages, setCartImages] = useState([]);
   const cart = useSelector((state) => state.cart);
+  const [quantities, setQuantities] = useState({});
+
   const dispatch = useDispatch();
+  const firebase = useFirebase();
 
   const deleteItem = (index) => {
     dispatch(deleteItemFromCart(index));
   };
 
+  const inc = (productId) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: (prevQuantities[productId] || 1) + 1,
+    }));
+  };
+
+  const dic = (productId) => {
+    if (quantities[productId] > 1) {
+      setQuantities((prevQuantities) => ({
+        ...prevQuantities,
+        [productId]: prevQuantities[productId] - 1,
+      }));
+    }
+  };
+
   const subtotal = cart.reduce(
-    (total, item) => total + parseFloat(item.prize),
+    (total, item) =>
+      total + parseFloat(item.prize) * (quantities[item.id] || 1),
     0
   );
 
-  console.log(subtotal);
+  useEffect(() => {
+    const fetchCartImages = async () => {
+      try {
+        const imageUrls = await Promise.all(
+          cart.map(async (item) => {
+            const imageUrlDownloaded = await firebase.downloadurl(
+              item.imageUrl || item.image
+            );
+            console.log("Image URL for", item.title, ":", imageUrlDownloaded);
+            return imageUrlDownloaded;
+          })
+        );
+        setCartImages(imageUrls);
+      } catch (error) {
+        console.error("Error fetching cart images:", error);
+      }
+    };
+
+    fetchCartImages();
+  }, [firebase, cart]);
 
   return (
     <section>
@@ -29,11 +73,11 @@ const Cart = () => {
               <thead>
                 <tr className="border-bottom">
                   <th className="bg-transparent text-dark px-0">Product</th>
-                  <th className="bg-transparent text-dark px-0">Price</th>
+                  <th className="bg-transparent text-dark px-0">Counter</th>
+                  <th className="bg-transparent text-dark px-0 ">Price</th>
                   <th className="bg-transparent text-dark px-0">
                     Stock Status
                   </th>
-                  <th className="bg-transparent text-dark px-0"></th>
                 </tr>
               </thead>
               <tbody>
@@ -41,20 +85,35 @@ const Cart = () => {
                   cart.map((item, index) => (
                     <tr key={index}>
                       <td className="d-flex align-items-center">
-                        <img
-                          src={item.img}
-                          alt="/"
-                          width={150}
-                          height={120}
-                          className="mr-4"
-                        />
+                        {cartImages[index] && (
+                          <img
+                            src={cartImages[index]}
+                            alt="/"
+                            width={150}
+                            height={120}
+                            className="mr-4"
+                          />
+                        )}
                         <div className="ps-3">
                           <h6 className="text-muted">{item.title}</h6>
                           <h5 className="fw-bold">{item.dis}</h5>
                         </div>
                       </td>
                       <td>
-                        <h5 className="fw-bold mb-0 ">{item.prize}</h5>
+                        <h6 className="fw-bold mb-0">
+                          <RemoveIcon
+                            className="product_dic"
+                            onClick={() => dic(item.id)}
+                          />
+                          {quantities[item.id] || 1}
+                          <AddIcon
+                            className="product_inc"
+                            onClick={() => inc(item.id)}
+                          />
+                        </h6>
+                      </td>
+                      <td>
+                        <h6 className="fw-bold mb-0">{item.prize}</h6>
                       </td>
 
                       <td>

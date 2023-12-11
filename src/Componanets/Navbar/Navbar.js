@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
 import CancelIcon from "@mui/icons-material/Cancel";
 import "./Navbar.css";
-import logo from "../assests/logo.png"
+import logo from "../assests/logo.png";
 
 const options = [
   {
@@ -15,7 +17,7 @@ const options = [
   },
   {
     title: "Pages",
-    opt: ["About_Us", "About_Team", "Contact_Us", "FAQ", "404", "Wishlist", "Login"],
+    opt: ["About_Us", "About_Team", "Contact_Us", "FAQ", "product"],
   },
   {
     title: "Shop",
@@ -33,6 +35,17 @@ const Navbar = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+
+  const cartCount = useSelector((state) => state.cart.length);
+  const wishlistCount = useSelector((state) => state.wishlist.length);
+
+
+  const totalCount = cartCount + wishlistCount;
+
+  useEffect(() => {
+    console.log("Total Count:", totalCount);
+  }, [totalCount]);
 
   return (
     <section>
@@ -72,8 +85,9 @@ const Navbar = () => {
           </ul>
           <div className="d-flex gap-5 svg_div">
             <div>
-              <Link to="/search">
-                <SearchIcon />
+              <Link to="/wishlist">
+                <FavoriteBorderIcon className="position-relative" />
+                {wishlistCount > 0 && <span className="position-absolute translate-middle badge rounded-pill fs-6">{wishlistCount}</span>}
               </Link>
             </div>
             <div>
@@ -84,6 +98,7 @@ const Navbar = () => {
             <div>
               <Link to="/cart">
                 <ShoppingCartIcon />
+                {cartCount > 0 && <span className="position-absolute translate-middle badge rounded-pill fs-6 ">{cartCount}</span>}
               </Link>
             </div>
           </div>

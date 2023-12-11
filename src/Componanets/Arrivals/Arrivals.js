@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Arrivals.css";
-import cardimg from "./ArrivalsArray";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -9,13 +8,16 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../Redux/Slice/CartSlice.js";
+import { useFirebase } from "../../Creatcontext/Firebase.js";
 
 const Arrivals = () => {
-  const dispatch = useDispatch();
-
+  const firebase = useFirebase();
+  const [products, setProducts] = useState([]);
+  const [urls, setUrls] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
   const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showAllProducts] = useState(false);
 
   const Stock = [
     {
@@ -26,42 +28,76 @@ const Arrivals = () => {
     },
   ];
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const productsData = await firebase.productlist();
+        setProducts(productsData.docs);
+
+        const imageUrls = await Promise.all(
+          productsData.docs.map(async (product) => {
+            const imageUrl = product.data().imageUrl;
+            const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
+            return imageUrlDownloaded;
+          })
+        );
+
+        setUrls(imageUrls);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, [firebase]);
+
   const showNotificationMessage = () => {
     setShowNotification(true);
-
     setTimeout(() => {
       setShowNotification(false);
+    }, 2000);
+  };
+
+  const addedincartmassge = () => {
+    setaddedincart(true);
+    setTimeout(() => {
+      setaddedincart(false);
     }, 2000);
   };
 
   const HandalWishlist = (item) => {
     showNotificationMessage();
     dispatch(addItemToWishlist(item));
-    console.log(item);
   };
 
-  const openProductModal = (product) => {
-    setSelectedProduct(product);
-    console.log(product);
+  const openProductModal = (item) => {
+    setSelectedProduct(item);
   };
 
   const closeProductModal = () => {
     setSelectedProduct(null);
   };
 
-  const addedincartmassge = () => {
-    setaddedincart(true);
-
-    setTimeout(() => {
-      setaddedincart(false);
-    }, 2000);
-  };
-
   const HandalCart = (item) => {
     dispatch(addToCart(item));
     addedincartmassge();
-    console.log(item);
   };
+
+  const loader = (index) => {
+    return urls[index] ? null : (
+      <div className="loader-container">
+        <span className="loader"></span>
+      </div>
+    );
+  };
+
+  const handleImageLoad = (index) => {
+    setUrls((prevUrls) => [...prevUrls, index]);
+  };
+
+  const displayedProducts = showAllProducts ? products : products.slice(0, 8);
 
   return (
     <section className="text-capitalize">
@@ -79,15 +115,17 @@ const Arrivals = () => {
       </div>
       <div className="container">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-          {cardimg.map((item, index) => (
+          {displayedProducts.map((item, index) => (
             <div className="col" key={index}>
               <div className="card">
                 <div className="img_div">
                   <div className="image-container">
-                    <Link to={`/products/${index}`}>
+                    <Link to={`/products/${item.data().id}`}>
+                      {loader(index)}
                       <img
-                        src={item.img}
-                        className="card-img-top"
+                        onLoad={() => handleImageLoad(index)}
+                        src={urls[index]}
+                        className={`card-img-top`}
                         alt="/"
                         height={250}
                         width={200}
@@ -97,7 +135,7 @@ const Arrivals = () => {
                   <div className="icons">
                     <div className="wishlist_icon">
                       <FavoriteBorderIcon
-                        onClick={(e) => HandalWishlist(item)}
+                        onClick={(e) => HandalWishlist(item.data())}
                         className="fs-3"
                       />
                     </div>
@@ -105,13 +143,13 @@ const Arrivals = () => {
                     <div className="zoom_icon">
                       <ZoomInIcon
                         className="fs-3"
-                        onClick={() => openProductModal(item)}
+                        onClick={(e) => openProductModal(item.data())}
                       />
                     </div>
                     <div className="cart_icon">
                       <ShoppingCartIcon
                         className="fs-3"
-                        onClick={() => HandalCart(item)}
+                        onClick={(e) => HandalCart(item.data())}
                       />
                     </div>
                   </div>
@@ -125,20 +163,22 @@ const Arrivals = () => {
                   Added to Cart!
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">{item.title}</h5>
-                  <p className="card-text m-0 mb-1">{item.dis}</p>
-                  <h4>{item.prize}</h4>
+                  <h5 className="card-title">{item.data().title}</h5>
+                  <p className="card-text m-0 mb-1">{item.data().dis}</p>
+                  <h4>{item.data().prize}</h4>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-      <div className="text-center pb-5">
-        <Link to="/shops">
-          <button className="btn">View more</button>
-        </Link>
-      </div>
+      {products.length > 8 && (
+        <div className="text-center py-5">
+          <Link to="/shops">
+            <button className="btn">View All</button>
+          </Link>
+        </div>
+      )}
       <div className="itemstock_div mb-5">
         <div className="container">
           <div className="stock_div">
@@ -173,7 +213,7 @@ const Arrivals = () => {
         </div>
       </div>
       {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeProductModal} />
+        <ProductModal products={selectedProduct} onClose={closeProductModal} />
       )}
     </section>
   );

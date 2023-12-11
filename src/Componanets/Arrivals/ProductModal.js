@@ -2,10 +2,29 @@ import React, { useEffect, useState } from "react";
 import "./ProductModalstyle.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/Slice/CartSlice";
+import { useFirebase } from "../../Creatcontext/Firebase";
 
-const ProductModal = ({ product, onClose }) => {
+const ProductModal = ({ products, onClose }) => {
   const [Counter, setCounter] = useState(1);
+  const firebase = useFirebase();
+  const [url, setURL] = useState(null);
+
+  const fetchProductURL = async () => {
+    try {
+      const imageUrl = await firebase.downloadurl(products.imageUrl);
+      setURL(imageUrl);
+    } catch (error) {
+      console.error("Error fetching product image URL:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductURL();
+  }, [firebase, products.imageUrl]);
+
 
   const inc = () => {
     setCounter(Counter + 1);
@@ -28,17 +47,42 @@ const ProductModal = ({ product, onClose }) => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [onClose]);
+
+
+  const dispatch = useDispatch();
+
+  const addCartItem = async () => {
+    try {
+      await fetchProductURL();
+      console.log("Image URL in addCartItem:", url);
+      const item = {
+        id:products.id,
+        title: products.title,
+        dis: products.dis,
+        imageUrl: url,
+        rating: products.rating,
+        prize: products.prize,
+        quantity: Counter,
+      };
+      console.log("Item to be added to cart:", item);
+      dispatch(addToCart(item));
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    }
+  };
+  
+
   return (
     <div className="modal_main">
       <div className="modal_content">
         <div className="modal_left">
-          <img src={product.img} alt={product.title} />
+          <img src={url} alt={products.title} />
         </div>
         <div className="modal_right">
-          <h2>{product.title}</h2>
-          <p>{product.dis}</p>
+          <h2>{products.title}</h2>
+          <p>{products.dis}</p>
           <div className="product_info">
-            <div className="product_rating">reviews : {product.rating} </div>
+            <div className="product_rating">reviews : {products.rating} </div>
             <div className="product_about">
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor
               eveniet labore quod ratione esse debitis quo sapiente ad? Nesciunt
@@ -49,7 +93,7 @@ const ProductModal = ({ product, onClose }) => {
           <div className="prduct_value">
             <div className="product_price">
               PRICE <br />
-              {product.prize}
+              {products.prize}
             </div>
             <div className="product_quantity">
               QUANTITY <br />
@@ -59,8 +103,10 @@ const ProductModal = ({ product, onClose }) => {
             </div>
           </div>
           <div className="product_buttons">
-            <button className="product_cart">Add to Cart</button>
-            <Link to = "/Buy_Now">
+            <button className="product_cart" onClick={addCartItem}>
+              Add to Cart
+            </button>
+            <Link to="/Buy_Now">
               <button>Buy Now</button>
             </Link>
           </div>

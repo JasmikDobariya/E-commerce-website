@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Shop.css";
-import cardimg from "../../../Arrivals/ArrivalsArray";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -10,10 +9,34 @@ import ProductModal from "../../../Arrivals/ProductModal";
 import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../../../Redux/Slice/CartSlice";
-import Products from "../../../Arrivals/Products.js";
 import { Link } from "react-router-dom";
+import { useFirebase } from "../../../../Creatcontext/Firebase";
 
 const Shop = () => {
+ 
+  const [products, setProducts] = useState([]);
+  const [urls, setUrls] = useState([]);
+  const firebase = useFirebase();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productsData = await firebase.productlist();
+      setProducts(productsData.docs);
+
+      const imageUrls = await Promise.all(
+        productsData.docs.map(async (product) => {
+          const imageUrl = product.data().imageUrl;
+          const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
+          return imageUrlDownloaded;
+        })
+      );
+
+      setUrls(imageUrls);
+    };
+
+    fetchProducts();
+  }, [firebase]);
+
   const brand = [["Poliform", "Roche Bobois", "Edra", "Kartell"]];
   const availab = [["On Stock", "Out of Stock"]];
 
@@ -23,7 +46,7 @@ const Shop = () => {
   const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const uniqueTitles = [...new Set(cardimg.map((item) => item.title))];
+  const uniqueTitles = [...new Set(products.map((item) => item.data().title))];
   const dispatch = useDispatch();
 
   const handleSliderChange = (value) => {
@@ -41,11 +64,10 @@ const Shop = () => {
   const HandalWishlist = (item) => {
     showNotificationMessage();
     dispatch(addItemToWishlist(item));
-    console.log(item);
   };
 
-  const openProductModal = (product) => {
-    setSelectedProduct(product);
+  const openProductModal = (item) => {
+    setSelectedProduct(item);
   };
 
   const closeProductModal = () => {
@@ -63,15 +85,24 @@ const Shop = () => {
   const HandalCart = (item) => {
     dispatch(addToCart(item));
     addedincartmassge();
-    console.log(item);
   };
 
-  const filteredCards = cardimg.filter((item) => {
+  const filteredCards = products.filter((item) => {
     if (selectedCategories.length === 0) {
       return true;
     }
-    return selectedCategories.includes(item.title);
+    return selectedCategories.includes(item.data().title);
   });
+
+
+  const filteredUrls = urls.filter((_, index) => {
+    return (
+      selectedCategories.length === 0 ||
+      selectedCategories.includes(products[index].data().title)
+    );
+  });
+
+  console.log("filteredUrls" , filteredUrls);
 
   return (
     <section>
@@ -84,8 +115,8 @@ const Shop = () => {
                 <div key={ind}>
                   <input
                     type="checkbox"
-                    className=""
                     id={`checkbox-${ind}`}
+                    checked={selectedCategories.includes(title)}
                     onChange={() => toggleCategoryFilter(title)}
                   />
                   <label
@@ -118,7 +149,7 @@ const Shop = () => {
                 <div key={indx} className="chackbox_div">
                   {ele.map((item, index) => (
                     <div key={index}>
-                      <input type="checkbox" className="" />
+                      <input type="checkbox"  />
                       <label
                         htmlFor={`checkbox-${index}`}
                         className="d-inline-grid ps-2 gap-5"
@@ -136,7 +167,7 @@ const Shop = () => {
                 <div key={i} className="chackbox_div">
                   {e.map((item, index) => (
                     <div key={index}>
-                      <input type="checkbox" className="" />
+                      <input type="checkbox"  />
                       <label
                         htmlFor={`checkbox-${index}`}
                         className="d-inline-grid ps-2 gap-5"
@@ -157,34 +188,33 @@ const Shop = () => {
                     <div className="card">
                       <div className="img_div">
                         <div className="image-container">
-                          <Link to={`/products/${index}`}>
-                            <img
-                              src={item.img}
-                              className="card-img-top"
-                              alt="/"
-                              height={250}
-                              width={200}
-                            />
-                          </Link>
+                        <Link to={`/products/${item.data().id}`}>
+                      <img
+                        src={filteredUrls[index]}
+                        className="card-img-top"
+                        alt="/"
+                        height={250}
+                        width={200}
+                      />
+                    </Link>
                         </div>
                         <div className="icons">
                           <div className="wishlist_icon">
                             <FavoriteBorderIcon
-                              onClick={() => HandalWishlist(item)}
+                              onClick={(e) => HandalWishlist(item.data())}
                               className="fs-3"
                             />
                           </div>
-
                           <div className="zoom_icon">
                             <ZoomInIcon
                               className="fs-3"
-                              onClick={() => openProductModal(item)}
+                              onClick={(e) => openProductModal(item.data())}
                             />
                           </div>
                           <div className="cart_icon">
                             <ShoppingCartIcon
                               className="fs-3"
-                              onClick={() => HandalCart(item)}
+                              onClick={(e) => HandalCart(item.data())}
                             />
                           </div>
                         </div>
@@ -200,9 +230,9 @@ const Shop = () => {
                         Added to Cart!
                       </div>
                       <div className="card-body">
-                        <h5 className="card-title">{item.title}</h5>
-                        <p className="card-text m-0 mb-1">{item.dis}</p>
-                        <h4>{item.prize}</h4>
+                        <h5 className="card-title">{item.data().title}</h5>
+                        <p className="card-text m-0 mb-1">{item.data().dis}</p>
+                        <h4>{item.data().prize}</h4>
                       </div>
                     </div>
                   </div>
@@ -213,7 +243,7 @@ const Shop = () => {
         </div>
       </div>
       {selectedProduct && (
-        <ProductModal product={selectedProduct} onClose={closeProductModal} />
+        <ProductModal products={selectedProduct} onClose={closeProductModal} />
       )}
     </section>
   );
@@ -229,4 +259,4 @@ const Shop = () => {
   }
 };
 
-export default Shop;
+export default Shop

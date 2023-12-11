@@ -16,6 +16,8 @@ import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
 import Products from "./Componanets/Arrivals/Products";
+import Addproduct from "./Product/Addproduct";
+
 
 function App() {
   return (
@@ -31,12 +33,12 @@ function App() {
         <Route exact path="/about_team" element={<AboutTeam />} />
         <Route exact path="/contact_us" element={<Contactus />} />
         <Route exact path="/faq" element={<FAQ />} />
-        <Route path="/404" element={<Errorpage />} />
+        <Route path="/*" element={<Errorpage />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/Buy_Now" element={<Buy_Now />} />
         <Route path="/products/:id" element={<Products />} />
-
+        <Route path="/product" element={<Addproduct />} />
 
       </Routes>
       <Footer />
