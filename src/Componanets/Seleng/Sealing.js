@@ -32,7 +32,7 @@ const Sealing = () => {
             </div>
             <div className="col-12 col-md-6 mb-5 ">
               <div className="row ">
-                <div className="col-12 col-md-6 ">
+                <div className="col-12 col-md-6 ~Q">
                   <a href="/node_modules">
                     <div className="online_div ">
                       <div className="text-end">
