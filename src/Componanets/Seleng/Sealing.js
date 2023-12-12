@@ -20,8 +20,8 @@ const Sealing = () => {
         </div>
         <div className="container">
           <div className="row ">
-            <div className="col-12 col-md-6 ">
-              <div className="spring_div">
+            <div className="col-12 col-md-6 overflow-hidden ">
+              <div className="spring_div ">
                 <div className="text_div p-5 fw-bold">
                   <h6 className="">ALL NEW</h6>
                   <h2>SPRING THINGS</h2>
@@ -30,11 +30,11 @@ const Sealing = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-6 mb-5">
-              <div className="row">
-                <div className="col-12 col-md-6">
+            <div className="col-12 col-md-6 mb-5 ">
+              <div className="row ">
+                <div className="col-12 col-md-6 ">
                   <a href="/node_modules">
-                    <div className="online_div">
+                    <div className="online_div ">
                       <div className="text-end">
                         <h6 className="fw-bold">Online Exclusive</h6>
                         <p>

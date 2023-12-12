@@ -1,12 +1,12 @@
 import ClearIcon from "@mui/icons-material/Clear";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCart } from "../../../Redux/Slice/CartSlice";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useFirebase } from "../../../Creatcontext/Firebase";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 
 const Cart = () => {
   const [cartImages, setCartImages] = useState([]);
@@ -64,20 +64,18 @@ const Cart = () => {
   }, [firebase, cart]);
 
   return (
-    <section>
+    <section className="mt-4">
       <div className="container">
         <div className="mb-5 row">
-          <div className="col-9">
+          <div className="col-md-9">
             <h1 className="fw-bold mt-4 mb-4">Cart</h1>
-            <table className="cart_table table table-borderless">
+            <table className="table table-borderless">
               <thead>
                 <tr className="border-bottom">
-                  <th className="bg-transparent text-dark px-0">Product</th>
-                  <th className="bg-transparent text-dark px-0">Counter</th>
-                  <th className="bg-transparent text-dark px-0 ">Price</th>
-                  <th className="bg-transparent text-dark px-0">
-                    Stock Status
-                  </th>
+                  <th className="bg-transparent text-dark">Product</th>
+                  <th className="bg-transparent text-dark">Counter</th>
+                  <th className="bg-transparent text-dark">Price</th>
+                  <th className="bg-transparent text-dark">Stock Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,7 +89,7 @@ const Cart = () => {
                             alt="/"
                             width={150}
                             height={120}
-                            className="mr-4"
+                            className="mr-4 img-fluid"
                           />
                         )}
                         <div className="ps-3">
@@ -115,10 +113,9 @@ const Cart = () => {
                       <td>
                         <h6 className="fw-bold mb-0">{item.prize}</h6>
                       </td>
-
                       <td>
                         <ClearIcon
-                          className="delete_icon "
+                          className="delete_icon"
                           onClick={() => deleteItem(index)}
                         />
                       </td>
@@ -136,7 +133,7 @@ const Cart = () => {
               </tbody>
             </table>
           </div>
-          <div className="col-3 cart_total">
+          <div className="col-md-3 cart_total">
             <div className="m-4">
               <div className="py-4">
                 <h3>Cart Total</h3>
@@ -163,7 +160,9 @@ const Cart = () => {
               </div>
             </div>
             <Link to="/buy_now">
-              <button className="col-12 p-3 check_out">Check out</button>
+              <button className="col-12 p-3 check_out ">
+                Check out
+              </button>
             </Link>
           </div>
         </div>

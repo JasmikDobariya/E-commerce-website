@@ -77,18 +77,19 @@
 
 .product-buttons {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   margin-top: 20px;
 }
 
 .product-buttons button {
-  width: 270px;
+  width: 100%;
   padding: 16px 20px;
   font-size: 16px;
   font-weight: 700;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .product-cart {
@@ -114,4 +115,17 @@
 
 .submitted-image{
   border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .modal-left,
+  .modal-right {
+    padding: 10px;
+  }
+
+  .product-value {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 }

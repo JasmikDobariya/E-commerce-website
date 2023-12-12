@@ -90,14 +90,14 @@ const Products = () => {
 
   return (
     <section>
-      <div className="container">
+      <div className="container mt-4">
         <div className="row">
-          <div className="col-6">
+          <div className="col-md-6">
             <div className="modal-left">
-              <img src={image} alt="/" />
+              <img src={image} alt="/" className="img-fluid" />
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-md-6">
             <div className="modal-right">
               <h2>{product.title}</h2>
               <p>{product.dis}</p>

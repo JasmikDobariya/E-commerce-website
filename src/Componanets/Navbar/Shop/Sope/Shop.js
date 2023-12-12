@@ -39,7 +39,6 @@ const Shop = () => {
 
   const brand = [["Poliform", "Roche Bobois", "Edra", "Kartell"]];
   const availab = [["On Stock", "Out of Stock"]];
-
   const [priceRange, setPriceRange] = useState([0, 1000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
@@ -108,7 +107,7 @@ const Shop = () => {
     <section>
       <div className="container">
         <div className="row">
-          <div className="col-2 p-0">
+          <div className="col-12 col-md-4 col-lg-3 p-0">
             <h4 className="fw-bold mb-5 mt-5 text-uppercase">CATEGORIES</h4>
             {uniqueTitles.map((title, ind) => (
               <div key={ind} className="chackbox_div pb-3">
@@ -180,7 +179,7 @@ const Shop = () => {
               ))}
             </div>
           </div>
-          <div className="col-10 p-5">
+          <div className="col-12 col-md-8 col-lg-9 p-2">
             <div className="container">
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
                 {filteredCards.map((item, index) => (

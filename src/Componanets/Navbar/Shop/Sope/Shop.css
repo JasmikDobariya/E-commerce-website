@@ -35,4 +35,18 @@
     background-color: #bd744c !important;
 }
 
-
+@media (max-width: 768px) {
+    .container {
+      padding: 0 10px; /* Adjust container padding for smaller screens */
+    }
+  
+    .col-2 {
+      flex: 0 0 100%; /* Make the sidebar take the full width on smaller screens */
+    }
+  
+    .slider_div {
+      width: 100% !important; /* Make the slider take full width on smaller screens */
+    }
+  
+    /* Add more responsive adjustments as needed */
+  }

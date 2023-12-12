@@ -99,13 +99,16 @@
 
     .list_div {
         display: none;
+        padding: 0px;
         position: absolute;
-        top: 60px;
+        top: 78px;
+        font-size: 20px;
         left: 0;
         width: 100%;
         background-color: #fff;
         z-index: 1;
         flex-direction: column;
+        padding-bottom: 10px;
     }
 
     .list_div.open {
