@@ -44,7 +44,6 @@ const Navbar = () => {
   const totalCount = cartCount + wishlistCount;
 
   useEffect(() => {
-    console.log("Total Count:", totalCount);
   }, [totalCount]);
 
   return (

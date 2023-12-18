@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useFirebase } from ".././Creatcontext/Firebase";
+import { useFirebase } from "../../Creatcontext/Firebase";
 
 const Addproduct = () => {
   const firebase = useFirebase();

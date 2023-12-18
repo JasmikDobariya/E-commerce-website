@@ -16,7 +16,8 @@ import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
 import Products from "./Componanets/Arrivals/Products";
-import Addproduct from "./Product/Addproduct";
+import Addproduct from "./Componanets/AdminDashbord/Addproduct";
+import Dashboard from "./Componanets/AdminDashbord/Dashboard";
 
 
 function App() {
@@ -38,7 +39,9 @@ function App() {
         <Route path="/login" element={<Loginpage />} />
         <Route path="/Buy_Now" element={<Buy_Now />} />
         <Route path="/products/:id" element={<Products />} />
-        <Route path="/product" element={<Addproduct />} />
+        <Route path="/Addproduct" element={<Addproduct />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+
 
       </Routes>
       <Footer />
