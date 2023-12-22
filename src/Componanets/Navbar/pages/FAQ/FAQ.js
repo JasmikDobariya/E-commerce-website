@@ -57,20 +57,25 @@ const FAQ = () => {
   return (
     <section>
       <div className="container py-5">
-        <div className="row ">
-          <div className="col-3">
+        <div className="row">
+          <div className="col-md-3">
             <h2>FAQ</h2>
             <p className="pb-5">
               Successful brands get into the mind slowly. A blurb in a magazine.
               A mention in a newspaper. A comment from a friend. A display in a
               retail
             </p>
-            <ul className="title-list">
+            <ul className="list-group title-list">
               {faqtitel[0].titel.map((title, index) => (
-                <li key={index} className="title-list-item">
+                <li
+                  key={index}
+                  className={`list-group-item title-list-item ${
+                    activeTitle === index ? "active" : ""
+                  }`}
+                >
                   <h4
                     onClick={() => handleClickTitle(index)}
-                    className={activeTitle === index ? "active" : ""}
+                    className={`mb-0 ${activeTitle === index ? "text-white" : ""}`}
                   >
                     {title}
                   </h4>
@@ -78,7 +83,7 @@ const FAQ = () => {
               ))}
             </ul>
           </div>
-          <div className="col-9">
+          <div className="col-md-9">
             {faqtitel[0].titel.map((title, index) => (
               <div
                 key={index}

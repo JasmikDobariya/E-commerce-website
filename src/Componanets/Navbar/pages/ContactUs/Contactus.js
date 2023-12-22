@@ -37,59 +37,63 @@ const Contactus = () => {
           </p>
 
           <form className="form_div gap-3" onSubmit={handleSubmit}>
-            <div className="d-grid">
-              <label className="fs-6 fw-semibold pb-1">Name</label>
-              <input
-                className="p-2 input_div"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                placeholder="Name"
-              />
+            <div className="row  ">
+              <div className="col-md-6 w-100">
+                <label className="fs-6 fw-semibold pb-1">Name</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Name"
+                />
+              </div>
+              
             </div>
-            <div className="d-flex justify-content-between gap-5">
-              <div className="d-grid w-100">
+            <div className="row mt-3">
+              <div className="col-md-6  ">
                 <label className="fs-6 fw-semibold pb-1">Email</label>
                 <input
-                  className="p-2 input_div"
+                  className="form-control"
                   type="email"
                   name="email"
                   value={formData.email}
-                  placeholder="email"
+                  placeholder="Email"
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="d-grid w-100">
+              <div className="col-md-6 mt-3 mt-md-0">
                 <label className="fs-6 fw-semibold pb-1">Phone Number</label>
                 <input
-                  className="p-2 input_div"
+                  className="form-control"
                   type="text"
                   name="phone"
                   placeholder="Phone"
-
                   value={formData.phone}
-                  
                   onChange={handleInputChange}
                 />
               </div>
             </div>
-            <div className="d-grid">
-              <label className="fs-6 fw-semibold pb-1">Your Message</label>
-              <textarea
-                name="message"
-                cols="30"
-                rows="10"
-                placeholder="Message"
-                className="p-3 massaged-text"
-                value={formData.message}
-                onChange={handleInputChange}
-              />
+            <div className="row mt-3">
+              <div className="col-md-12">
+                <label className="fs-6 fw-semibold pb-1">Your Message</label>
+                <textarea
+                  name="message"
+                  className="form-control massaged-text"
+                  placeholder="Message"
+                  rows="6"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                />
+              </div>
             </div>
-            <div>
-              <button type="submit" className="mass_btn">
-                Send Message
-              </button>
+            <div className="row mt-3">
+              <div className="col-md-12">
+                <button type="submit" className="mass_btn ">
+                  Send Message
+                </button>
+              </div>
             </div>
           </form>
         </div>

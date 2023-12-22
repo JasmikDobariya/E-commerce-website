@@ -33,11 +33,11 @@ const Categories = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 1100,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 500,
+    autoplaySpeed: 1100,
   };
   return (
     <section>
@@ -106,13 +106,14 @@ const Categories = () => {
           <Slider {...settings}>
             {products.map((item , index) => (
               <div key={item.id}>
+              <Link to="/shops">
                 <img src={urls[index]} alt={item.alt} className="img" />
+                </Link>
                 <h6 className="description fw-bold">{item.data().title}</h6>
                 <h6 className="description ">{item.data().dis}</h6>
                 <h6 className="description fw-bold">{item.data().prize}</h6>
               </div>
             ))}
-            {console.log("product" , products)}
           </Slider>
         </div>
       </div>

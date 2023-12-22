@@ -10,11 +10,11 @@ const Errorpage = () => {
         <div id="wrapper">
           <Link to="/" className="my-super-cool-btn">
            
-              <div class="dots-container">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+              <div className="dots-container">
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
+                <div className="dot"></div>
               </div>
               <span>Go To Home</span>
           
