@@ -1,10 +1,16 @@
 .form_div {
     display: flex !important;
     flex-direction: column;
-
-
-
+     max-width: 600px; 
+    width: 100%;
 }
+
+.contect_div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
 
 .emil_div {
     margin-right: 120px;

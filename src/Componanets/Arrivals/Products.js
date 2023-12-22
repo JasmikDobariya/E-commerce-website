@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Products.css";
-
-
-
 import FeedbackForm from "./FeedbackForm";
 import Rating from "@mui/material/Rating";
 import { useDispatch } from "react-redux";
@@ -17,11 +14,11 @@ const Products = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [products, setProducts] = useState([]);
-  const [Counter, setCounter] = useState(1);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [selectedCardItem, setSelectedCardItem] = useState(null);
   const [feedbackEntries, setFeedbackEntries] = useState([]);
   const [urls, setUrls] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -57,18 +54,9 @@ const Products = () => {
     return <div>Loading...</div>;
   }
 
-  const inc = () => {
-    setCounter(Counter + 1);
-  };
-
-  const dic = () => {
-    if (Counter > 1) setCounter(Counter - 1);
-  };
-
   const toggleFeedbackForm = (cardItem) => {
     setSelectedCardItem(cardItem);
     setShowFeedbackForm(true);
-
   };
 
   const addCartItem = () => {
@@ -79,7 +67,6 @@ const Products = () => {
       image: image,
       rating: product.rating,
       prize: product.prize,
-      quantity: Counter,
     };
     dispatch(addToCart(item));
   };
@@ -110,23 +97,23 @@ const Products = () => {
                   earum consectetur. Quia, temporibus!
                 </div>
               </div>
-              <div className="prduct-value">
-                <div className="product-price">
-                  PRICE <br />
-                  {product.prize}
-                </div>
-                <div className="product-quantity">
-                  QUANTITY <br />
-                  <RemoveIcon className="product-dic" onClick={dic} />
-                  {Counter}
-                  <AddIcon className="product-inc" onClick={inc} />
-                </div>
-              </div>
+
+              <div className="product-price">PRICE : {product.prize}</div>
               <div className="product-buttons">
                 <button className="product-cart" onClick={addCartItem}>
                   Add to Cart
                 </button>
-                <Link to="/Buy_Now">
+                <Link
+                  to="/buy_now"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate("/buy_now", {
+                      state: {
+                        productsId: product,
+                      },
+                    });
+                  }}
+                >
                   <button>Buy Now</button>
                 </Link>
               </div>
@@ -157,7 +144,6 @@ const Products = () => {
         </div>
         {feedbackEntries.map((feedback, index) => (
           <div key={index} className="d-flex gap-4 py-3  ">
-            
             {image && (
               <img
                 src={feedback.img}

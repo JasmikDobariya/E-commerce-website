@@ -1,13 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Buy_Now.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useFirebase } from "../../Creatcontext/Firebase";
 
-const Buy_Now = () => {
-  const payment = ["Credit Card", "PayPal", "Cash", "Other"];
+const calculateWishlistSubtotal = (wishlist) => {
+  return wishlist.reduce((total, item) => {
+    return total + parseFloat(item.prize) || 0;
+  }, 0);
+};
 
+const Buy_Now = () => {
   const firebase = useFirebase();
+
+  const location = useLocation();
+
+  const cartItems = location.state?.cartItems || [];
+  const wishlist = location.state?.wishlist || [];
+  const subtotal = location.state?.subtotal || 0;
+  const productsmodal = location.state?.productsmodal || [];
+  const productsId = location.state?.productsId || [];
+  const quantities = location.state?.quantities || {};
+  const wishlistSubtotal = calculateWishlistSubtotal(wishlist);
+  const productPrize = parseFloat(productsmodal.prize) || 0;
+  const productIdPrize = parseFloat(productsId.prize) || 0;
+  const total = subtotal + wishlistSubtotal + productPrize + productIdPrize;
+
+  const payment = ["Credit Card", "PayPal", "Cash", "Other"];
+  
+  const productsIdArray = Array.isArray(productsId) ? productsId : [productsId];
+  
+  const productsmodalArray = Array.isArray(productsmodal) ? productsmodal : [productsmodal];
+  
+
+
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -17,14 +43,21 @@ const Buy_Now = () => {
     city: "",
     state: "",
     zip: "",
-    cardNumber: "",
-    cardName: "",
-    expiryMonth: "",
-    expiryYear: "",
-    cvv: "",
   });
 
   const [selectedPayment, setSelectedPayment] = useState(null);
+
+  const updatedQuantities = { ...quantities };
+  cartItems.forEach((item) => {
+    const itemId = item.id; 
+    if (itemId && !(itemId in updatedQuantities)) {
+      updatedQuantities[itemId] = 1;
+    }
+  });
+
+
+
+  console.log("Updated Quantities:", updatedQuantities);
 
   const handlePaymentClick = (index) => {
     setSelectedPayment(index);
@@ -40,6 +73,25 @@ const Buy_Now = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "address",
+      "city",
+      "state",
+      "zip",
+    ];
+
+    const isAnyFieldEmpty = requiredFields.some(
+      (field) => !formData[field] || formData[field].trim() === ""
+    );
+
+    if (isAnyFieldEmpty) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     await firebase.handlelisting(
       formData.firstName,
       formData.lastName,
@@ -47,9 +99,29 @@ const Buy_Now = () => {
       formData.address2,
       formData.city,
       formData.state,
-      formData.zip
+      formData.zip,
+      total,
+      updatedQuantities,
+      wishlist,
+      productsmodalArray,
+      productsIdArray,
+      cartItems
     );
+
+    alert("Form submitted successfully!");
+
+    setFormData({
+      firstName: "",
+      lastName: "",
+      address: "",
+      address2: "",
+      city: "",
+      state: "",
+      zip: "",
+    });
   };
+
+  console.log("subtotal:", subtotal);
 
   return (
     <section>
@@ -62,7 +134,7 @@ const Buy_Now = () => {
             </Link>
           </h6>
         </div>
-        <div className="my-5">
+        <div className="my-3 text-center">
           <h2>Billing Info</h2>
           <p>
             Choose a payment option below and fill out the appropriate
@@ -103,6 +175,7 @@ const Buy_Now = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
+                  placeholder="First Name"
                 />
               </div>
               <div className="col-md-6">
@@ -116,6 +189,7 @@ const Buy_Now = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
+                  placeholder="Last Name"
                 />
               </div>
               <div className="col-12">
@@ -129,12 +203,12 @@ const Buy_Now = () => {
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
-                  placeholder="1234 Main St"
+                  placeholder="12,Main St"
                 />
               </div>
               <div className="col-12">
                 <label htmlFor="address2" className="form-label">
-                  Address 2
+                  Street/Apartment/Floor
                 </label>
                 <input
                   type="text"
@@ -157,16 +231,18 @@ const Buy_Now = () => {
                   name="city"
                   value={formData.city}
                   onChange={handleInputChange}
+                  placeholder="City"
                 />
               </div>
               <div className="col-md-4">
                 <label className="form-label">State</label>
                 <input
-                  className="form-select p-2"
+                  className="form-control p-2"
                   id="state"
                   name="state"
                   value={formData.state}
                   onChange={handleInputChange}
+                  placeholder="State"
                 />
               </div>
               <div className="col-md-2">
@@ -180,7 +256,8 @@ const Buy_Now = () => {
                   name="zip"
                   value={formData.zip}
                   onChange={handleInputChange}
-                />
+                  placeholder="PinCode"
+                />  
               </div>
               <button type="submit" className="w-100 p-3 fw-bold pymet_sub_btn">
                 Submit
@@ -188,75 +265,21 @@ const Buy_Now = () => {
             </form>
           </div>
           <div className="col-4">
-            <form>
-              {selectedPayment === 0 && (
-                <>
-                  <label className="py-2 w-100">
-                    Card Number:
-                    <input
-                      type="text"
-                      name="cardNumber"
-                      value={formData.cardNumber}
-                      onChange={handleInputChange}
-                      placeholder="Enter card number"
-                    />
-                  </label>
-                  <label className="py-2 w-100">
-                    Cardholder's Name:
-                    <input
-                      type="text"
-                      name="cardName"
-                      value={formData.cardName}
-                      onChange={handleInputChange}
-                      placeholder="Enter cardholder's name"
-                    />
-                  </label>
-                  <label className="d-grid gap-2">
-                    Expiry Date:
-                    <select
-                      name="expiryMonth"
-                      value={formData.expiryMonth}
-                      onChange={handleInputChange}
-                      className="p-2 m-0 rounded-2"
-                    >
-                      <option value="" disabled>
-                        Select Month
-                      </option>
-                      <option value="01">January</option>
-                      <option value="02">February</option>
-                    </select>
-                    <select
-                      name="expiryYear"
-                      value={formData.expiryYear}
-                      onChange={handleInputChange}
-                      className="p-2 m-0 rounded-2"
-                    >
-                      <option value="" disabled>
-                        Select Year
-                      </option>
-                      <option value="2023">2023</option>
-                      <option value="2024">2024</option>
-                    </select>
-                  </label>
-                  <label className="d-grid py-2">
-                    CVV:
-                    <input
-                      type="text"
-                      name="cvv"
-                      value={formData.cvv}
-                      onChange={handleInputChange}
-                      placeholder="Enter CVV"
-                      maxLength={3}
-                    />
-                  </label>
-                  <button
-                    type="submit"
-                    className="w-100 p-3 fw-bold pymet_sub_btn"
-                  >
-                    Submit
-                  </button>
-                </>
-              )}
+            <form className="d-flex justify-content-center gap-2 align-items-center w-100 h-100 flex-column">
+              <p className="fs-2 text-center fw-semibold">Subtotal: {total}</p>
+              <p className="fs-2 text-center fw-semibold">
+                Quantities
+                {Object.entries(updatedQuantities).map(
+                  ([productId, quantity], index) => (
+                    <span key={index} className=" d-flex ">
+                      Product ID: {productId}, Item: {quantity}
+                      {index < Object.entries(updatedQuantities).length - 1
+                        ? ", "
+                        : ""} 
+                    </span>
+                  )
+                )}
+              </p>
             </form>
           </div>
         </div>

@@ -44,6 +44,8 @@ const Shop = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  
+  
 
   const uniqueTitles = [...new Set(products.map((item) => item.data().title))];
   const dispatch = useDispatch();
@@ -101,13 +103,24 @@ const Shop = () => {
     );
   });
 
-  console.log("filteredUrls" , filteredUrls);
+  const loader = (index) => {
+    return urls[index] ? null : (
+      <div className="loader-container">
+        <span className="loader"></span>
+      </div>
+    );
+  };
+
+  const handleImageLoad = (index) => {
+    setUrls((prevUrls) => [...prevUrls, index]);
+  };
+
 
   return (
     <section>
       <div className="container">
         <div className="row">
-          <div className="col-12 col-md-4 col-lg-3 p-0">
+          <div className="col-12 col-md-3 col-lg-2 p-0">
             <h4 className="fw-bold mb-5 mt-5 text-uppercase">CATEGORIES</h4>
             {uniqueTitles.map((title, ind) => (
               <div key={ind} className="chackbox_div pb-3">
@@ -178,22 +191,26 @@ const Shop = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="col-12 col-md-8 col-lg-9 p-2">
+          </div>  
+          <div className="col-12 col-md-9 col-lg-10 p-2">
             <div className="container">
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
                 {filteredCards.map((item, index) => (
                   <div className="col" key={index}>
-                    <div className="card">
+                    <div className="card shadow rounded-4">
+                   
+                        
                       <div className="img_div">
                         <div className="image-container">
                         <Link to={`/products/${item.data().id}`}>
+                        {loader(index)}
                       <img
                         src={filteredUrls[index]}
                         className="card-img-top"
                         alt="/"
                         height={250}
-                        width={200}
+                        width={200}     
+                        onLoad={() => handleImageLoad(index)}                  
                       />
                     </Link>
                         </div>

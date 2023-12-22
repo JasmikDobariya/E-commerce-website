@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import "./Wishlist.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -7,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../../../Redux/Slice/CartSlice";
 import { deleteItemFromWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../../../Creatcontext/Firebase";
 
 const Wishlist = () => {
@@ -15,6 +14,7 @@ const Wishlist = () => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const firebase = useFirebase();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchWishlistImages = async () => {
@@ -91,7 +91,17 @@ const Wishlist = () => {
                         >
                           <ShoppingCartIcon /> Add to Cart
                         </button>
-                        <Link to="/Buy_Now">
+                        <Link
+                          to="/buy_now"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            navigate("/buy_now", {
+                              state: {
+                                wishlist: wishlist,
+                              },
+                            });
+                          }}
+                        >
                           <button className="btn_cart_wishlist ms-4">
                             <ShoppingBasketIcon /> Buy Now
                           </button>

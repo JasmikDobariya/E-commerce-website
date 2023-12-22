@@ -17,15 +17,15 @@ const options = [
   },
   {
     title: "Pages",
-    opt: ["About_Us", "About_Team", "Contact_Us", "FAQ", "product"],
+    opt: ["About_Us", "About_Team", "Contact_Us", "FAQ"],
   },
   {
     title: "Shop",
-    opt: ["Shops", "Categories", "Account"],
+    opt: ["Shops", "Categories"],
   },
   {
     title: "Blog",
-    opt: ["Blogs", "Blog Article"],
+    opt: ["Blogs"],
   },
 ];
 
@@ -36,15 +36,12 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
-
   const cartCount = useSelector((state) => state.cart.length);
   const wishlistCount = useSelector((state) => state.wishlist.length);
 
-
   const totalCount = cartCount + wishlistCount;
 
-  useEffect(() => {
-  }, [totalCount]);
+  useEffect(() => {}, [totalCount]);
 
   return (
     <section>
@@ -62,10 +59,15 @@ const Navbar = () => {
           </div>
           <ul className={`list_div ${menuOpen ? "open" : ""}`}>
             {options.map((option, index) => (
-              <li key={index} className={option.opt.length > 0 ? "dropdown" : ""}>
+              <li
+                key={index}
+                className={option.opt.length > 0 ? "dropdown" : ""}
+              >
                 <span className="main_option">
                   {option.opt.length > 0 ? (
-                    <Link to={`/${option.title.toLowerCase()}`}>{option.title}</Link>
+                    <Link to={`/${option.title.toLowerCase()}`}>
+                      {option.title}
+                    </Link>
                   ) : (
                     option.title
                   )}
@@ -74,7 +76,9 @@ const Navbar = () => {
                   <div className="dropdown-content">
                     {option.opt.map((subOption, subIndex) => (
                       <button key={subIndex} className="option-button">
-                        <Link to={`/${subOption.toLowerCase()}`}>{subOption}</Link>
+                        <Link to={`/${subOption.toLowerCase()}`}>
+                          {subOption}
+                        </Link>
                       </button>
                     ))}
                   </div>
@@ -86,7 +90,11 @@ const Navbar = () => {
             <div>
               <Link to="/wishlist">
                 <FavoriteBorderIcon className="position-relative" />
-                {wishlistCount > 0 && <span className="position-absolute translate-middle badge rounded-pill fs-6">{wishlistCount}</span>}
+                {wishlistCount > 0 && (
+                  <span className="position-absolute translate-middle badge rounded-pill fs-6">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
             </div>
             <div>
@@ -97,7 +105,11 @@ const Navbar = () => {
             <div>
               <Link to="/cart">
                 <ShoppingCartIcon />
-                {cartCount > 0 && <span className="position-absolute translate-middle badge rounded-pill fs-6 ">{cartCount}</span>}
+                {cartCount > 0 && (
+                  <span className="position-absolute translate-middle badge rounded-pill fs-6 ">
+                    {cartCount}
+                  </span>
+                )}
               </Link>
             </div>
           </div>

@@ -7,9 +7,17 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
-import { getFirestore, addDoc, collection ,  getDocs } from "firebase/firestore";
-import { getStorage, ref, uploadBytes , getDownloadURL } from "firebase/storage";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  getDocs,
+  doc, 
+  updateDoc, 
+} from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const FirebaseContext = createContext(null);
 
@@ -65,9 +73,15 @@ export const FirebaseProvider = (props) => {
     address2,
     city,
     state,
-    zip
+    zip,
+    total,
+    updatedQuantities,
+    wishlist,
+    productsmodalArray,
+    productsIdArray,
+    cartItems
   ) => {
-    return await addDoc(collection(firestore, "oder"), {
+    return await addDoc(collection(firestore, "Orders"), {
       firstName,
       lastName,
       address,
@@ -75,6 +89,12 @@ export const FirebaseProvider = (props) => {
       city,
       state,
       zip,
+      total,
+      updatedQuantities,
+      wishlist,
+      productsmodalArray,
+      productsIdArray,
+      cartItems,
       userId: user.uid,
       userEmail: user.email,
     });
@@ -96,13 +116,23 @@ export const FirebaseProvider = (props) => {
     });
   };
 
-  const productlist = () =>{
-    return getDocs(collection(firestore, "product"))
-  }
+  const productlist = () => {
+    return getDocs(collection(firestore, "product"));
+  };
 
-  const downloadurl = (path) =>{
-return getDownloadURL(ref(storage, path));
-  }
+  const downloadurl = (path) => {
+    return getDownloadURL(ref(storage, path));
+  };
+
+  const updateProductPrice = async (productId, newPrice) => {
+    const productDoc = doc(firestore, "product", productId);
+    await updateDoc(productDoc, { prize: newPrice });
+  };
+
+  const logout = async () => {
+    await signOut(firebaseAuth);
+    setuser(null);
+  };
 
   return (
     <FirebaseContext.Provider
@@ -114,11 +144,15 @@ return getDownloadURL(ref(storage, path));
         handlelisting,
         addproduct,
         productlist,
-        downloadurl
+        downloadurl,
+        updateProductPrice,
+        userEmail: user ? user.email : null,
+        logout,
       }}
     >
       {props.children}
     </FirebaseContext.Provider>
   );
 };
+
 export const app = initializeApp(firebaseConfig);

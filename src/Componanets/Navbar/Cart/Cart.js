@@ -1,20 +1,20 @@
+import React, { useState, useEffect } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCart } from "../../../Redux/Slice/CartSlice";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFirebase } from "../../../Creatcontext/Firebase";
 
 const Cart = () => {
   const [cartImages, setCartImages] = useState([]);
   const cart = useSelector((state) => state.cart);
   const [quantities, setQuantities] = useState({});
-
   const dispatch = useDispatch();
   const firebase = useFirebase();
+  const navigate = useNavigate();
 
   const deleteItem = (index) => {
     dispatch(deleteItemFromCart(index));
@@ -38,7 +38,7 @@ const Cart = () => {
 
   const subtotal = cart.reduce(
     (total, item) =>
-      total + parseFloat(item.prize) * (quantities[item.id] || 1),
+      total + (parseFloat(item.prize) || 0) * (quantities[item.id] || 1),
     0
   );
 
@@ -50,7 +50,6 @@ const Cart = () => {
             const imageUrlDownloaded = await firebase.downloadurl(
               item.imageUrl || item.image
             );
-            console.log("Image URL for", item.title, ":", imageUrlDownloaded);
             return imageUrlDownloaded;
           })
         );
@@ -89,7 +88,7 @@ const Cart = () => {
                             alt="/"
                             width={150}
                             height={120}
-                            className="mr-4 img-fluid"
+                            className="mr-4"
                           />
                         )}
                         <div className="ps-3">
@@ -145,13 +144,7 @@ const Cart = () => {
               <hr />
               <div className="d-flex gap-3">
                 <h6>Shipping:</h6>
-                <h6>
-                  Free Shipping
-                  <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Dolorum quidem commodi,
-                  </p>
-                </h6>
+                <h6>Free Shipping</h6>
               </div>
               <hr />
               <div className="d-flex gap-3">
@@ -159,10 +152,23 @@ const Cart = () => {
                 <h5 className="fw-1">{`${subtotal}`}$</h5>
               </div>
             </div>
-            <Link to="/buy_now">
-              <button className="col-12 p-3 check_out ">
-                Check out
-              </button>
+            {
+              console.log("subtotal" , quantities)
+            }
+            <Link
+              to="/buy_now"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/buy_now", {
+                  state: {
+                    cartItems: cart,
+                    subtotal: subtotal,
+                    quantities: quantities,
+                  },
+                });
+              }}
+            >
+              <button className="col-12 p-3 check_out">Buy Now</button>
             </Link>
           </div>
         </div>

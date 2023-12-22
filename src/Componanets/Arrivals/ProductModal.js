@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductModalstyle.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
 import { useFirebase } from "../../Creatcontext/Firebase";
@@ -11,6 +11,8 @@ const ProductModal = ({ products, onClose }) => {
   const [Counter, setCounter] = useState(1);
   const firebase = useFirebase();
   const [url, setURL] = useState(null);
+
+  const navigate = useNavigate();
 
   const fetchProductURL = async () => {
     try {
@@ -24,7 +26,6 @@ const ProductModal = ({ products, onClose }) => {
   useEffect(() => {
     fetchProductURL();
   }, [firebase, products.imageUrl]);
-
 
   const inc = () => {
     setCounter(Counter + 1);
@@ -48,7 +49,6 @@ const ProductModal = ({ products, onClose }) => {
     };
   }, [onClose]);
 
-
   const dispatch = useDispatch();
 
   const addCartItem = async () => {
@@ -56,7 +56,7 @@ const ProductModal = ({ products, onClose }) => {
       await fetchProductURL();
       console.log("Image URL in addCartItem:", url);
       const item = {
-        id:products.id,
+        id: products.id,
         title: products.title,
         dis: products.dis,
         imageUrl: url,
@@ -70,7 +70,6 @@ const ProductModal = ({ products, onClose }) => {
       console.error("Error adding item to cart:", error);
     }
   };
-  
 
   return (
     <div className="modal_main">
@@ -106,7 +105,17 @@ const ProductModal = ({ products, onClose }) => {
             <button className="product_cart" onClick={addCartItem}>
               Add to Cart
             </button>
-            <Link to="/Buy_Now">
+            <Link
+              to="/buy_now"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/buy_now", {
+                  state: {
+                    productsmodal: products,
+                  },
+                });
+              }}
+            >
               <button>Buy Now</button>
             </Link>
           </div>

@@ -1,5 +1,10 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Navbar from "./Componanets/Navbar/Navbar";
 import Footer from "./Componanets/Footer/Footer";
 import Homepage from "./Componanets/Home/Homepage";
@@ -16,14 +21,28 @@ import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
 import Products from "./Componanets/Arrivals/Products";
-import Addproduct from "./Componanets/AdminDashbord/Addproduct";
-import Dashboard from "./Componanets/AdminDashbord/Dashboard";
 
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      <AppContent />
+    </Router>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+
+  const noNavbarFooterRoutes = [ "/login"  ];
+
+  const shouldDisplayNavbarFooter = !noNavbarFooterRoutes.includes(
+    location.pathname
+  );
+
+  return (
+    <>
+      {shouldDisplayNavbarFooter && <Navbar />}
       <Routes>
         <Route exact path="/" element={<Homepage />} />
         <Route exact path="/about_us" element={<AboutUs />} />
@@ -34,18 +53,16 @@ function App() {
         <Route exact path="/about_team" element={<AboutTeam />} />
         <Route exact path="/contact_us" element={<Contactus />} />
         <Route exact path="/faq" element={<FAQ />} />
-        <Route path="/*" element={<Errorpage />} />
+        <Route path="*" element={<Errorpage />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/Buy_Now" element={<Buy_Now />} />
         <Route path="/products/:id" element={<Products />} />
-        <Route path="/Addproduct" element={<Addproduct />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-
+        
 
       </Routes>
-      <Footer />
-    </Router>
+      {shouldDisplayNavbarFooter && <Footer />}
+    </>
   );
 }
 
