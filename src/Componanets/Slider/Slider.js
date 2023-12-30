@@ -14,7 +14,7 @@ const ImageSlider = () => {
       text: ["CHAIR", "get all", "THE GOOD STUFF"],
     },
     {
-      image: "https://welldone.co.th/wp-content/uploads/2020/12/011.jpg",
+      image: "https://m.media-amazon.com/images/I/71C+WkNvcmL.jpg",
       text: ["CHAIR", "get all", "THE GOOD STUFF"],
     },
     {

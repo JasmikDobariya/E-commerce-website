@@ -53,9 +53,11 @@ const LoginPage = () => {
     setIsLogin(!isLogin);
   };
 
+  console.log("isLogin", isLogin);
+
   return (
     <div className="login">
-    <div className="loginpage_style"></div>
+      <div className="loginpage_style"></div>
       {firebase.isLoggedin ? (
         <div>
           <p className="p-2 fs-4 fw-bold">Welcome : {firebase.userEmail}!</p>
@@ -67,12 +69,21 @@ const LoginPage = () => {
           <Link to="/">
             <button className="battn fw-bold">Back To Home</button>
           </Link>
+          <div className="pt-2">
+            <Link to="/User_detiles">
+              <button className="battn fw-bold">Add More About You</button>
+            </Link>
+          </div>
         </div>
       ) : (
         <form
           className={`form_main_div ${isLogin ? "show-form" : "hide-form"}`}
         >
-          {isLogin ? <h2 className="fw-bold">Login Page</h2> : <h2 className="fw-bold">Create Account</h2>}
+          {isLogin ? (
+            <h2 className="fw-bold">Login Page</h2>
+          ) : (
+            <h2 className="fw-bold">Create Account</h2>
+          )}
           <hr />
           <div className="input-container text-start">
             <label className="text-bisque fs-4 fw-bold">Email</label>

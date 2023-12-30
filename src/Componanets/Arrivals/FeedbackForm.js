@@ -6,7 +6,6 @@ import { useFirebase } from "../../Creatcontext/Firebase";
 import CloseIcon from '@mui/icons-material/Close';
 
 const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
-  console.log("cardItem", cardItem);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -45,13 +44,6 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
     console.log(formData);
   };
 
-  const handleImageChange = (e) => {
-    const imageFile = e.target.files[0];
-    setFormData({
-      ...formData,
-      image: imageFile,
-    });
-  };
 
   return (
     <div className="modal_title text-capitalize">
@@ -61,47 +53,48 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
         </span>
         <table>
           <tbody>
-            <td className="d-flex align-items-center py-3">
-              <img
-                src={ url}
-                alt="/"
-                width={150}
-                height={120}
-                className="mr-4"
-              />
-              {console.log(url)}
-              <div className="ps-3">
-                <h6 className="text-muted">{cardItem.title}</h6>
-                <h5 className="fw-bold">{cardItem.dis}</h5>
-                <h5 className="fw-b   old mb-0 ">Price : {cardItem.prize}</h5>
-              </div>
-            </td>
+          <tr> 
+              <td className="d-flex align-items-center py-3">
+                <img
+                  src={ url}
+                  alt="/"
+                  width={150}
+                  height={120}
+                  className="mr-4"
+                />
+                <div className="ps-3">
+                  <h6 className="text-muted">{cardItem.title}</h6>
+                  <h5 className="fw-bold">{cardItem.dis}</h5>
+                  <h5 className="fw-b   old mb-0 ">Price : {cardItem.prize}</h5>
+                </div>
+              </td>
+            </tr>
           </tbody>
         </table>
         <form onSubmit={handleSubmit}>
-          <div class="row">
-            <div class="col">
+          <div className="row">
+            <div className="col">
               <label htmlFor="firstName" className="fw-semibold m-1">
                 First name
               </label>
               <input
                 type="text"
                 name="firstName"
-                class="form-control"
+                className="form-control"
                 placeholder="First name"
                 aria-label="First name"
                 value={formData.firstName}
                 onChange={handleInputChange}
               />
             </div>
-            <div class="col">
+            <div className="col">
               <label htmlFor="lastName" className="fw-semibold m-1">
                 Last name
               </label>
               <input
                 type="text"
                 name="lastName"
-                class="form-control"
+                className="form-control"
                 placeholder="Last name"
                 aria-label="Last name"
                 value={formData.lastName}
@@ -139,15 +132,7 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
               />
             </div>
           </div>
-          <div className="form-group1">
-            <label htmlFor="image" className="m-1">Image</label>
-            <input
-              type="file"
-              accept="image/*"
-              name="image"
-              onChange={handleImageChange}
-            />
-          </div>
+          
           <div className="py-2">
             <button
               className="leave_btn col-12"

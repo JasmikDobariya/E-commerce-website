@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ProductModalstyle.css";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
 import { useFirebase } from "../../Creatcontext/Firebase";

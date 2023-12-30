@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../Redux/Slice/CartSlice.js";
 import { useFirebase } from "../../Creatcontext/Firebase.js";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Arrivals = () => {
   const firebase = useFirebase();
@@ -87,8 +89,8 @@ const Arrivals = () => {
 
   const loader = (index) => {
     return urls[index] ? null : (
-      <div className="loader-container">
-        <span className="loader"></span>
+      <div >
+        <Skeleton width={250} height={250}  />
       </div>
     );
   };
@@ -121,15 +123,17 @@ const Arrivals = () => {
                 <div className="img_div">
                   <div className="image-container">
                     <Link to={`/products/${item.data().id}`}>
+                      <SkeletonTheme baseColor="#fff" highlightColor="#bb9e8e">
                       {loader(index)}
-                      <img
-                        onLoad={() => handleImageLoad(index)}
-                        src={urls[index]}
-                        className={`card-img-top`}
-                        alt="/"
-                        height={250}
-                        width={200}
-                      />
+                        <img
+                          onLoad={() => handleImageLoad(index)}
+                          src={urls[index] }
+                          className={`card-img-top`}
+                          alt="/"
+                          height={250}
+                          width={200}
+                        />
+                      </SkeletonTheme>
                     </Link>
                   </div>
                   <div className="icons">
@@ -163,8 +167,13 @@ const Arrivals = () => {
                   Added to Cart!
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">{item.data().title}</h5>
-                  <p className="card-text m-0 mb-1">{item.data().dis}</p>
+                  <h5 className="card-title">
+                    {item.data().title || <Skeleton />}
+                  </h5>
+                  <p className="card-text m-0 mb-1">
+                    {item.data().dis || <Skeleton count={5} />}
+                  </p>
+
                   <h4>{item.data().prize}</h4>
                 </div>
               </div>

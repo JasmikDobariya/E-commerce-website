@@ -8,7 +8,7 @@ import {
 import Navbar from "./Componanets/Navbar/Navbar";
 import Footer from "./Componanets/Footer/Footer";
 import Homepage from "./Componanets/Home/Homepage";
-import Shop from "./Componanets/Navbar/Shop/Sope/Shop";
+import Shop from "./Componanets/Navbar/Shop/Shoppage/Shop";
 import Blogpages from "./Componanets/Navbar/Blog/Blogpages";
 import Wishlist from "./Componanets/Navbar/pages/Wishlist/Wishlist";
 import Cart from "./Componanets/Navbar/Cart/Cart";
@@ -21,6 +21,7 @@ import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
 import Products from "./Componanets/Arrivals/Products";
+import User_detiles from "./Componanets/Login/User_detiles";
 
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
 function AppContent() {
   const location = useLocation();
 
-  const noNavbarFooterRoutes = [ "/login"  ];
+  const noNavbarFooterRoutes = [ "/login" , "/User_detiles"  ];
 
   const shouldDisplayNavbarFooter = !noNavbarFooterRoutes.includes(
     location.pathname
@@ -58,6 +59,8 @@ function AppContent() {
         <Route path="/login" element={<Loginpage />} />
         <Route path="/Buy_Now" element={<Buy_Now />} />
         <Route path="/products/:id" element={<Products />} />
+        <Route path="/User_detiles" element={<User_detiles />} />
+
         
 
       </Routes>

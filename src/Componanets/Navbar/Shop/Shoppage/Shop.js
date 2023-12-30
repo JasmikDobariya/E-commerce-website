@@ -5,12 +5,14 @@ import "./Shop.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ProductModal from "../../../Arrivals/ProductModal";
+import ProductModal from "../../../Arrivals/ProductModal.js";
 import { useDispatch } from "react-redux";
-import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
-import { addToCart } from "../../../../Redux/Slice/CartSlice";
+import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js.js";
+import { addToCart } from "../../../../Redux/Slice/CartSlice.js";
 import { Link } from "react-router-dom";
-import { useFirebase } from "../../../../Creatcontext/Firebase";
+import { useFirebase } from "../../../../Creatcontext/Firebase.js";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -36,8 +38,7 @@ const Shop = () => {
     fetchProducts();
   }, [firebase]);
 
-  const availab = [["On Stock", "Out of Stock"]];
-  const [priceRange, setPriceRange] = useState([0, 1000]);
+  const [priceRange, setPriceRange] = useState([0, 25000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
   const [addedincart, setaddedincart] = useState(false);
@@ -103,8 +104,8 @@ const Shop = () => {
 
   const loader = (index) => {
     return urls[index] ? null : (
-      <div className="loader-container">
-        <span className="loader"></span>
+      <div className="">
+        <Skeleton height={250} width={250} count={5} />
       </div>
     );
   };
@@ -138,38 +139,19 @@ const Shop = () => {
               </div>
             ))}
 
-            <div>
-              <h4 className="fw-bold mb-4 mt-5 text-uppercase">PRICE</h4>
+            <div >
+              <h4 className="fw-bold mb-4 mt-5  text-uppercase">PRICE</h4>
               <p>
-                Price:Min: $ {priceRange[0]} - Max: ${priceRange[1]}
+                Price:Min: ₹{priceRange[0]} - Max: ₹{priceRange[1]}
               </p>
               <Slider
                 className="slider_div"
                 min={0}
-                max={1500}
+                max={25000}
                 range
                 value={priceRange}
                 onChange={handleSliderChange}
               />
-            </div>
-
-            <div>
-              <h4 className="fw-bold mb-5 mt-5 text-uppercase">AVAILABILITY</h4>
-              {availab.map((e, i) => (
-                <div key={i} className="chackbox_div">
-                  {e.map((item, index) => (
-                    <div key={index}>
-                      <input type="checkbox" />
-                      <label
-                        htmlFor={`checkbox-${index}`}
-                        className="d-inline-grid ps-2 gap-5"
-                      >
-                        {item}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ))}
             </div>
           </div>
           <div className="col-12 col-md-9 col-lg-10 p-2">
@@ -181,15 +163,20 @@ const Shop = () => {
                       <div className="img_div">
                         <div className="image-container">
                           <Link to={`/products/${item && item.data()?.id}`}>
-                            {loader(index)}
-                            <img
-                              src={filteredUrls[index]}
-                              className="card-img-top"
-                              alt="/"
-                              height={250}
-                              width={200}
-                              onLoad={() => handleImageLoad(index)}
-                            />
+                            <SkeletonTheme
+                              baseColor="#fff"
+                              highlightColor="#bb9e8e"
+                            >
+                              {loader(index)}
+                              <img
+                                src={filteredUrls[index]}
+                                className="card-img-top"
+                                alt="/"
+                                height={250}
+                                width={200}
+                                onLoad={() => handleImageLoad(index)}
+                              />
+                            </SkeletonTheme>
                           </Link>
                         </div>
                         <div className="icons">
@@ -231,6 +218,13 @@ const Shop = () => {
                         <h5 className="card-title">
                           {item && item.data()?.title}
                         </h5>
+                        <p className=" m-0 mb-1 text-danger fw-bold">
+                          {item && item.data()?.inStock ? (
+                            item.data().inStock
+                          ) : (
+                            <span className="out-of-stock">Out of Stock</span>
+                          )}
+                        </p>
                         <p className="card-text m-0 mb-1">
                           {item && item.data()?.dis}
                         </p>

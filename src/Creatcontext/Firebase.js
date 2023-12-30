@@ -14,8 +14,10 @@ import {
   addDoc,
   collection,
   getDocs,
-  doc, 
-  updateDoc, 
+  doc,
+  updateDoc,
+  setDoc,
+  getDoc,
 } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
@@ -134,6 +136,53 @@ export const FirebaseProvider = (props) => {
     setuser(null);
   };
 
+  const saveUserDetails = async (userDetails) => {
+    if (!user) {
+      console?.error("User not logged in.");
+      return;
+    }
+
+    const userDocRef = doc(firestore, "users", user.uid);
+
+    try {
+      await setDoc(userDocRef, userDetails);
+    } catch (error) {
+      console.error("Error saving user details:", error.message);
+    }
+  };
+
+  const getUserDetails = async () => {
+    if (!user) {
+       console?.error("User not logged in2.");
+       return null;
+    }
+
+    const userDocRef = doc(firestore, "users", user.uid);
+
+    try {
+      const userDoc = await getDoc(userDocRef);
+      return userDoc.exists() ? userDoc.data() : null;
+    } catch (error) {
+      console.error("Error fetching user details:", error.message);
+      return null;
+    }
+  };
+
+  const updateUserDetails = async (updatedDetails) => {
+    if (!user) {
+      console.error("User not logged in.");
+      return;
+    }
+
+    const userDocRef = doc(firestore, "users", user.uid);
+
+    try {
+      await updateDoc(userDocRef, updatedDetails);
+    } catch (error) {
+      console.error("Error updating user details:", error.message);
+    }
+  };
+
   return (
     <FirebaseContext.Provider
       value={{
@@ -148,6 +197,9 @@ export const FirebaseProvider = (props) => {
         updateProductPrice,
         userEmail: user ? user.email : null,
         logout,
+        saveUserDetails,
+        getUserDetails,
+        updateUserDetails
       }}
     >
       {props.children}

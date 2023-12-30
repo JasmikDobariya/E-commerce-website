@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Products.css";
 import FeedbackForm from "./FeedbackForm";
@@ -8,6 +7,7 @@ import Rating from "@mui/material/Rating";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
 import { useFirebase } from "../../Creatcontext/Firebase";
+import { DNA } from "react-loader-spinner";
 
 const Products = () => {
   const firebase = useFirebase();
@@ -19,6 +19,7 @@ const Products = () => {
   const [feedbackEntries, setFeedbackEntries] = useState([]);
   const [urls, setUrls] = useState([]);
   const navigate = useNavigate();
+  const [imageLoading, setImageLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -39,6 +40,7 @@ const Products = () => {
         );
 
         setUrls(imageUrls);
+        setImageLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -49,10 +51,6 @@ const Products = () => {
 
   const product = products.find((product) => product.id === id);
   const image = urls[products.findIndex((p) => p.id === id)];
-
-  if (!product) {
-    return <div>Loading...</div>;
-  }
 
   const toggleFeedbackForm = (cardItem) => {
     setSelectedCardItem(cardItem);
@@ -81,15 +79,44 @@ const Products = () => {
         <div className="row">
           <div className="col-md-6">
             <div className="modal-left">
-              <img src={image} alt="/" className="img-fluid" />
+              {imageLoading && (
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "45%",
+                    left: "25%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <DNA
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="dna-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="dna-wrapper"
+                    
+                  />
+                </div>
+              )}
+              {!imageLoading && (
+                <img
+                  onLoad={() => setImageLoading(false)}
+                  src={image}
+                  alt="/"
+                  className="img-fluid"
+                />
+              )}
             </div>
           </div>
           <div className="col-md-6">
             <div className="modal-right">
-              <h2>{product.title}</h2>
-              <p>{product.dis}</p>
+              <h2>{product?.title}</h2>
+              <p>{product?.dis}</p>
               <div className="product-info">
-                <div className="product-rating">reviews : {product.rating}</div>
+                <div className="product-rating">
+                  reviews : {product?.rating}
+                </div>
                 <div className="product-about">
                   Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                   Dolor eveniet labore quod ratione esse debitis quo sapiente
@@ -98,7 +125,7 @@ const Products = () => {
                 </div>
               </div>
 
-              <div className="product-price">PRICE : {product.prize}</div>
+              <div className="product-price">PRICE : {product?.prize}</div>
               <div className="product-buttons">
                 <button className="product-cart" onClick={addCartItem}>
                   Add to Cart
@@ -144,18 +171,9 @@ const Products = () => {
         </div>
         {feedbackEntries.map((feedback, index) => (
           <div key={index} className="d-flex gap-4 py-3  ">
-            {image && (
-              <img
-                src={feedback.img}
-                alt="Submitted"
-                className="submitted-image"
-                height={150}
-                width={150}
-              />
-            )}
             <div className="flex-column text-capitalize ">
               <h3 className="py-2 p-0">
-                {feedback.firstName} {feedback.lastName}
+                Name : {feedback.firstName} {feedback.lastName}
               </h3>
               <Rating
                 name="rating"

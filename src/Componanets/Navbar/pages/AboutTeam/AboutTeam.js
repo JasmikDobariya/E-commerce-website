@@ -3,7 +3,6 @@ import "./AboutTeam.css";
 import AboutTeamarray from "./AboutTeamarray";
 
 const AboutTeam = () => {
-  console.log(AboutTeamarray);
   return (
     <section>
       <div className="container">

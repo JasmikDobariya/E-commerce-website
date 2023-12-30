@@ -10,29 +10,37 @@
     padding: 16px;
     cursor: pointer;
     margin: 7px;
+    display: flex;
+    align-items: center;
 }
 
 .list_div a {
     text-decoration: none !important;
     color: #3c484f;
     background-color: #fff !important;
+    
+    
 }
 
 .main_div {
     height: 80px !important;
     font-size: 16px;
+    
 }
 
 .dropdown {
     position: relative;
+    
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 35px;
+    top: 70px;
     left: 0;
     z-index: 1;
+    
+    
 }
 
 .logo_div {
@@ -42,6 +50,8 @@
 
 .dropdown:hover .dropdown-content {
     display: block;
+    
+    
 }
 
 .option-button {
@@ -50,6 +60,7 @@
     border: none !important;
     text-align: start;
     background-color: #fff !important;
+    
 }
 
 .option-button a {
@@ -70,6 +81,7 @@
     height: 10px;
     display: inline-block;
     margin-left: 5px;
+    
 }
 
 .svg_div a {

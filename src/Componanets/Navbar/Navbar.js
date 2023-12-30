@@ -64,9 +64,7 @@ const Navbar = () => {
               >
                 <span className="main_option">
                   {option.opt.length > 0 ? (
-                    <Link to={`/${option.title.toLowerCase()}`}>
-                      {option.title}
-                    </Link>
+                    <div>{option.title}</div>
                   ) : (
                     option.title
                   )}

@@ -41,13 +41,13 @@ const AboutUs = () => {
         <div className="about-images">
           <img
             src="https://www.myreaderbooks.com/wp-content/uploads/2022/12/furniture-Lakemba-.jpg"
-            alt="Image 1"
+            alt="about 1"
             height={450}
             width={600}
           />
           <img
             src="https://www.ardellsmoving.com/wp-content/uploads/2017/06/iStock-514455761-2.jpg"
-            alt="Image 2"
+            alt="about 2"
             height={450}
             width={600}
           />
