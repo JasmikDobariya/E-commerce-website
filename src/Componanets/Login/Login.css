@@ -5,7 +5,7 @@
   text-align: center;
   vertical-align: middle;
   align-items: center;
-  color: rgb(242, 164, 125);
+  color: rgba(20, 11, 6, 0.619);
   height: 700px;
 }
 
@@ -52,7 +52,7 @@
 
 .battn {
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: #010101;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -61,5 +61,7 @@
 }
 
 .battn:hover {
-  background-color: #0056b3;
+  font-weight: 700;
+  color: #000000;
+  background-color: #ffffff;
 }

@@ -6,15 +6,15 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "react-redux";
 import store from "./Redux/Store";
-import { FirebaseProvider } from "./Creatcontext/Firebase";
+import { AuthProvider } from "./Creatcontext/DataBackend";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <FirebaseProvider>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </FirebaseProvider>
+  <AuthProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+  </AuthProvider>
 );
 
 reportWebVitals();

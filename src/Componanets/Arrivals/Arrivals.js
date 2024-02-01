@@ -8,18 +8,17 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../Redux/Slice/CartSlice.js";
-import { useFirebase } from "../../Creatcontext/Firebase.js";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
+import { useAuth } from "../../Creatcontext/DataBackend.js";
+
 const Arrivals = () => {
-  const firebase = useFirebase();
-  const [products, setProducts] = useState([]);
-  const [urls, setUrls] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
   const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showAllProducts] = useState(false);
+
+  const { products } = useAuth();
 
   const Stock = [
     {
@@ -31,29 +30,6 @@ const Arrivals = () => {
   ];
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productsData = await firebase.productlist();
-        setProducts(productsData.docs);
-
-        const imageUrls = await Promise.all(
-          productsData.docs.map(async (product) => {
-            const imageUrl = product.data().imageUrl;
-            const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
-            return imageUrlDownloaded;
-          })
-        );
-
-        setUrls(imageUrls);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
-    fetchProducts();
-  }, [firebase]);
 
   const showNotificationMessage = () => {
     setShowNotification(true);
@@ -87,19 +63,6 @@ const Arrivals = () => {
     addedincartmassge();
   };
 
-  const loader = (index) => {
-    return urls[index] ? null : (
-      <div >
-        <Skeleton width={250} height={250}  />
-      </div>
-    );
-  };
-
-  const handleImageLoad = (index) => {
-    setUrls((prevUrls) => [...prevUrls, index]);
-  };
-
-  const displayedProducts = showAllProducts ? products : products.slice(0, 8);
 
   return (
     <section className="text-capitalize">
@@ -117,29 +80,26 @@ const Arrivals = () => {
       </div>
       <div className="container">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
-          {displayedProducts.map((item, index) => (
+          {products.slice(0, 8).map((item, index) => (
             <div className="col" key={index}>
               <div className="card">
                 <div className="img_div">
                   <div className="image-container">
-                    <Link to={`/products/${item.data().id}`}>
-                      <SkeletonTheme baseColor="#fff" highlightColor="#bb9e8e">
-                      {loader(index)}
+                    <Link to={`/products/${item._id}`}>
+                      
                         <img
-                          onLoad={() => handleImageLoad(index)}
-                          src={urls[index] }
-                          className={`card-img-top`}
+                          src={`http://localhost:5000/${item.coverImageURL}`}
+                          className="card-img-top"
                           alt="/"
                           height={250}
                           width={200}
                         />
-                      </SkeletonTheme>
                     </Link>
                   </div>
                   <div className="icons">
                     <div className="wishlist_icon">
                       <FavoriteBorderIcon
-                        onClick={(e) => HandalWishlist(item.data())}
+                        onClick={(e) => HandalWishlist(item)}
                         className="fs-3"
                       />
                     </div>
@@ -147,13 +107,13 @@ const Arrivals = () => {
                     <div className="zoom_icon">
                       <ZoomInIcon
                         className="fs-3"
-                        onClick={(e) => openProductModal(item.data())}
+                        onClick={(e) => openProductModal(item)}
                       />
                     </div>
                     <div className="cart_icon">
                       <ShoppingCartIcon
                         className="fs-3"
-                        onClick={(e) => HandalCart(item.data())}
+                        onClick={(e) => HandalCart(item)}
                       />
                     </div>
                   </div>
@@ -167,14 +127,12 @@ const Arrivals = () => {
                   Added to Cart!
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">
-                    {item.data().title || <Skeleton />}
-                  </h5>
+                  <h5 className="card-title">{item.title || <Skeleton />}</h5>
                   <p className="card-text m-0 mb-1">
-                    {item.data().dis || <Skeleton count={5} />}
+                    {item.dis || <Skeleton count={5} />}
                   </p>
 
-                  <h4>{item.data().prize}</h4>
+                  <h4>{item.price}₹</h4>
                 </div>
               </div>
             </div>
@@ -229,3 +187,5 @@ const Arrivals = () => {
 };
 
 export default Arrivals;
+
+

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./FeedbackForm.css";
 import Rating from "@mui/material/Rating";
 import { TextareaAutosize } from "@mui/material";
-import { useFirebase } from "../../Creatcontext/Firebase";
 import CloseIcon from '@mui/icons-material/Close';
 
 const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
@@ -10,24 +9,9 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
     firstName: "",
     lastName: "",
     message: "",
-    image: null,
     rating: 0,
   });
-  const firebase = useFirebase();
-  const [url, setURL] = useState(null);
 
-  const fetchProductURL = async () => {
-    try {
-      const imageUrl = await firebase.downloadurl(cardItem.imageUrl);
-      setURL(imageUrl);
-    } catch (error) {
-      console.error("Error fetching product image URL:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductURL();
-  }, [firebase, cardItem.imageUrl])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,7 +40,7 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
           <tr> 
               <td className="d-flex align-items-center py-3">
                 <img
-                  src={ url}
+                  src={`http://localhost:5000${cardItem?.coverImageURL}`}
                   alt="/"
                   width={150}
                   height={120}
@@ -65,7 +49,7 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
                 <div className="ps-3">
                   <h6 className="text-muted">{cardItem.title}</h6>
                   <h5 className="fw-bold">{cardItem.dis}</h5>
-                  <h5 className="fw-b   old mb-0 ">Price : {cardItem.prize}</h5>
+                  <h5 className="fw-b   old mb-0 ">Price : {cardItem.price}₹</h5>
                 </div>
               </td>
             </tr>

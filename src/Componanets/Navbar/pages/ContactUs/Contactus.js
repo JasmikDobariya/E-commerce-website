@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import "./Contactus.css";
 
+import { useAuth } from "../../../../Creatcontext/DataBackend";
+
 const Contactus = () => {
-  const formfeild = {
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     message: "",
-  };
+  });
 
-  const [formData, setFormData] = useState(formfeild);
+  const { user } = useAuth();
+
+  const [userData, setuserData] = useState(true);
+
+  if (userData && user) {
+    setFormData((prevData) => ({
+      ...prevData,
+      email: user.email || "", 
+    }));
+    setuserData(false);
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,12 +31,25 @@ const Contactus = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(formData);
-
-    setFormData(formfeild);
+    try {
+      const response = await fetch(`http://localhost:5000/user/contact_us`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      console.log("message", error);
+    }
   };
 
   return (
@@ -49,7 +74,6 @@ const Contactus = () => {
                   placeholder="Name"
                 />
               </div>
-              
             </div>
             <div className="row mt-3">
               <div className="col-md-6  ">

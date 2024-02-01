@@ -7,34 +7,13 @@ import { addToCart } from "../../../../Redux/Slice/CartSlice";
 import { deleteItemFromWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Link, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../../../Creatcontext/Firebase";
 
 const Wishlist = () => {
-  const [wishlistImages, setWishlistImages] = useState([]);
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
-  const firebase = useFirebase();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchWishlistImages = async () => {
-      try {
-        const imageUrls = await Promise.all(
-          wishlist.map(async (item) => {
-            const imageUrlDownloaded = await firebase.downloadurl(
-              item.imageUrl
-            );
-            return imageUrlDownloaded;
-          })
-        );
-        setWishlistImages(imageUrls);
-      } catch (error) {
-        console.error("Error fetching wishlist images:", error);
-      }
-    };
-
-    fetchWishlistImages();
-  }, [firebase, wishlist]);
+  console.log("wishlist", wishlist);
 
   const deleteItem = (index) => {
     dispatch(deleteItemFromWishlist(index));
@@ -66,24 +45,23 @@ const Wishlist = () => {
                   wishlist.map((item, index) => (
                     <tr key={index}>
                       <td className="d-flex align-items-center">
-                        {wishlistImages[index] && (
-                          <img
-                            src={wishlistImages[index]}
-                            alt="/"
-                            width={150}
-                            height={120}
-                            className="mr-4"
-                          />
-                        )}
+                        <img
+                          src={`http://localhost:5000${item?.coverImageURL}`}
+                          alt="/"
+                          width={150}
+                          height={120}
+                          className="mr-4"
+                        />
+
                         <div className="ps-3">
                           <h6 className="text-muted">{item.title}</h6>
                           <h5 className="fw-bold">{item.dis}</h5>
                         </div>
                       </td>
                       <td>
-                        <h6 className="fw-bold mb-0">{item.prize}</h6>
+                        <h6 className="fw-bold mb-0">{item.price}₹</h6>
                       </td>
-                      <td>Invelid</td>
+                      <td>{item.stock} Item Left</td>
                       <td>
                         <button
                           className="btn_cart_wishlist me-3"

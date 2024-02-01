@@ -5,27 +5,13 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
-import { useFirebase } from "../../Creatcontext/Firebase";
 
 const ProductModal = ({ products, onClose }) => {
   const [Counter, setCounter] = useState(1);
-  const firebase = useFirebase();
-  const [url, setURL] = useState(null);
+
+  console.log("products" ,products)
 
   const navigate = useNavigate();
-
-  const fetchProductURL = async () => {
-    try {
-      const imageUrl = await firebase.downloadurl(products.imageUrl);
-      setURL(imageUrl);
-    } catch (error) {
-      console.error("Error fetching product image URL:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProductURL();
-  }, [firebase, products.imageUrl]);
 
   const inc = () => {
     setCounter(Counter + 1);
@@ -53,15 +39,13 @@ const ProductModal = ({ products, onClose }) => {
 
   const addCartItem = async () => {
     try {
-      await fetchProductURL();
-      console.log("Image URL in addCartItem:", url);
       const item = {
-        id: products.id,
+        id: products._id,
         title: products.title,
         dis: products.dis,
-        imageUrl: url,
+        coverImageURL: products.coverImageURL,
         rating: products.rating,
-        prize: products.prize,
+        price: products.price,
         quantity: Counter,
       };
       console.log("Item to be added to cart:", item);
@@ -75,7 +59,10 @@ const ProductModal = ({ products, onClose }) => {
     <div className="modal_main">
       <div className="modal_content">
         <div className="modal_left">
-          <img src={url} alt={products.title} />
+          <img
+            src={`http://localhost:5000/${products.coverImageURL}`}
+            alt={products.title}
+          />
         </div>
         <div className="modal_right">
           <h2>{products.title}</h2>
@@ -92,7 +79,7 @@ const ProductModal = ({ products, onClose }) => {
           <div className="prduct_value">
             <div className="product_price">
               PRICE <br />
-              {products.prize}
+              {products.price}
             </div>
             <div className="product_quantity">
               QUANTITY <br />

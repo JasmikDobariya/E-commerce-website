@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { useFirebase } from "../../Creatcontext/Firebase";
 import { Link } from "react-router-dom";
 
+import { useAuth } from "../../Creatcontext/DataBackend.js";
+
 const LoginPage = () => {
-  const firebase = useFirebase();
+  const { storeTokenInLS } = useAuth();
+  const { isLoggedIn } = useAuth();
+  const { LogoutUser } = useAuth();
+  const { user } = useAuth();
+
+  console.log("user" , user)
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
+    userName: "",
   });
+
   const [isLogin, setIsLogin] = useState(true);
 
   const handleInputChange = (e) => {
@@ -23,57 +31,74 @@ const LoginPage = () => {
   const createUser = async (e) => {
     e.preventDefault();
     console.log("signing up user ...");
-    const result = await firebase.signupuser(formData.email, formData.password);
-    console.log("signup Success", result);
-    setFormData({
-      email: "",
-      password: "",
-    });
+    try {
+      const response = await fetch(`http://localhost:5000/user/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const res_data = await response.json();
+        storeTokenInLS(res_data.token);
+
+        setFormData({
+          email: "",
+          password: "",
+          userName: "",
+        });
+      }
+    } catch (error) {
+      console.log("message", error);
+    }
   };
 
   const loginUser = async (e) => {
     e.preventDefault();
-    console.log("logging in user ...");
-    const resultlogin = await firebase.loginuser(
-      formData.email,
-      formData.password
-    );
-    console.log("login Success", resultlogin);
-    setFormData({
-      email: "",
-      password: "",
-    });
+    try {
+      const response = await fetch(`http://localhost:5000/user/signin`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const res_data = await response.json();
+        storeTokenInLS(res_data.token);
+
+        setFormData({
+          email: "",
+          password: "",
+        });
+      }
+    } catch (error) {
+      console.log("message", error);
+    }
   };
 
   const logoutUser = () => {
-    firebase.logout();
+    LogoutUser();
   };
 
   const handleToggleForm = () => {
     setIsLogin(!isLogin);
   };
 
-  console.log("isLogin", isLogin);
-
   return (
     <div className="login">
       <div className="loginpage_style"></div>
-      {firebase.isLoggedin ? (
-        <div>
-          <p className="p-2 fs-4 fw-bold">Welcome : {firebase.userEmail}!</p>
-          <div className="pb-2">
-            <button className="battn fw-bold " onClick={logoutUser}>
+      {isLoggedIn ? (
+        <div className="w-25">
+          <p className="p-2 fs-4 fw-bold text-capitalize">Welcome: {user && user?.userName}</p>
+          <div className="pb-2 ">
+            <button className="battn fw-bold" onClick={logoutUser}>
               Logout
             </button>
           </div>
           <Link to="/">
             <button className="battn fw-bold">Back To Home</button>
           </Link>
-          <div className="pt-2">
-            <Link to="/User_detiles">
-              <button className="battn fw-bold">Add More About You</button>
-            </Link>
-          </div>
+          
         </div>
       ) : (
         <form
@@ -85,6 +110,20 @@ const LoginPage = () => {
             <h2 className="fw-bold">Create Account</h2>
           )}
           <hr />
+          {!isLogin && (
+            <div className="input-container text-start">
+              <label className="text-bisque fs-4 fw-bold">Full Name</label>
+              <input
+                required
+                className="in_div"
+                name="userName"
+                placeholder="Enter Your Full Name"
+                type="text"
+                value={formData.userName}
+                onChange={handleInputChange}
+              />
+            </div>
+          )}
           <div className="input-container text-start">
             <label className="text-bisque fs-4 fw-bold">Email</label>
             <input
@@ -126,10 +165,6 @@ const LoginPage = () => {
             onClick={handleToggleForm}
           >
             {isLogin ? "Register Account" : "Return to Login"}
-          </button>
-          <div className="my-2">OR</div>
-          <button className="battn" onClick={firebase.googlelogin}>
-            Login with Google
           </button>
         </form>
       )}

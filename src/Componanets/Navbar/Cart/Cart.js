@@ -6,14 +6,11 @@ import "./Cart.css";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteItemFromCart } from "../../../Redux/Slice/CartSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useFirebase } from "../../../Creatcontext/Firebase";
 
 const Cart = () => {
-  const [cartImages, setCartImages] = useState([]);
   const cart = useSelector((state) => state.cart);
   const [quantities, setQuantities] = useState({});
   const dispatch = useDispatch();
-  const firebase = useFirebase();
   const navigate = useNavigate();
 
   const deleteItem = (index) => {
@@ -38,29 +35,9 @@ const Cart = () => {
 
   const subtotal = cart.reduce(
     (total, item) =>
-      total + (parseFloat(item.prize) || 0) * (quantities[item.id] || 1),
+      total + (parseFloat(item.price) || 0) * (quantities[item._id] || 1),
     0
   );
-
-  useEffect(() => {
-    const fetchCartImages = async () => {
-      try {
-        const imageUrls = await Promise.all(
-          cart.map(async (item) => {
-            const imageUrlDownloaded = await firebase.downloadurl(
-              item.imageUrl || item.image
-            );
-            return imageUrlDownloaded;
-          })
-        );
-        setCartImages(imageUrls);
-      } catch (error) {
-        console.error("Error fetching cart images:", error);
-      }
-    };
-
-    fetchCartImages();
-  }, [firebase, cart]);
 
   return (
     <section className="mt-4">
@@ -82,15 +59,14 @@ const Cart = () => {
                   cart.map((item, index) => (
                     <tr key={index}>
                       <td className="d-flex align-items-center">
-                        {cartImages[index] && (
-                          <img
-                            src={cartImages[index]}
-                            alt="/"
-                            width={150}
-                            height={120}
-                            className="mr-4"
-                          />
-                        )}
+                        <img
+                          src={`http://localhost:5000${item?.coverImageURL}`}
+                          alt="/"
+                          width={150}
+                          height={120}
+                          className="mr-4"
+                        />
+
                         <div className="ps-3">
                           <h6 className="text-muted">{item.title}</h6>
                           <h5 className="fw-bold">{item.dis}</h5>
@@ -100,17 +76,17 @@ const Cart = () => {
                         <h6 className="fw-bold mb-0">
                           <RemoveIcon
                             className="product_dic"
-                            onClick={() => dic(item.id)}
+                            onClick={() => dic(item._id)}
                           />
-                          {quantities[item.id] || 1}
+                          {quantities[item._id] || 1}
                           <AddIcon
                             className="product_inc"
-                            onClick={() => inc(item.id)}
+                            onClick={() => inc(item._id)}
                           />
                         </h6>
                       </td>
                       <td>
-                        <h6 className="fw-bold mb-0">{item.prize}</h6>
+                        <h6 className="fw-bold mb-0">{item.price}̥₹</h6>
                       </td>
                       <td>
                         <ClearIcon
@@ -139,7 +115,7 @@ const Cart = () => {
               </div>
               <div className="d-flex gap-3">
                 <h6>Subtotal :</h6>
-                <h6>{`${subtotal}`}$</h6>
+                <h6>{`${subtotal}`}₹</h6>
               </div>
               <hr />
               <div className="d-flex gap-3">
@@ -147,14 +123,12 @@ const Cart = () => {
                 <h6>Free Shipping</h6>
               </div>
               <hr />
-              <div className="d-flex gap-3">
+              <div className="d-flex gap-3 ">
                 <h5>Total :</h5>
-                <h5 className="fw-1">{`${subtotal}`}$</h5>
+                <h5 className="fw-1">{`${subtotal}`}₹</h5>
               </div>
             </div>
-            {
-              console.log("subtotal" , quantities)
-            }
+            {console.log("subtotal", quantities)}
             <Link
               to="/buy_now"
               onClick={(e) => {

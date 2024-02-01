@@ -1,35 +1,13 @@
 import "./Categories.css";
 import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useFirebase } from "../../../../Creatcontext/Firebase";
+import { useAuth } from "../../../../Creatcontext/DataBackend";
 
 const Categories = () => {
-  const [products, setProducts] = useState([]);
-  const [urls, setUrls] = useState([]);
-  const firebase = useFirebase();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productsData = await firebase.productlist();
-      setProducts(productsData.docs);
-
-      const imageUrls = await Promise.all(
-        productsData.docs.map(async (product) => {
-          const imageUrl = product.data().imageUrl;
-          const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
-          return imageUrlDownloaded;
-        })
-      );
-
-      setUrls(imageUrls);
-    };
-
-    fetchProducts();
-  }, [firebase]);
-
+  const { products } = useAuth();
+  
   const settings = {
     dots: false,
     infinite: true,
@@ -105,13 +83,13 @@ const Categories = () => {
         <div className="con_div">
           <Slider {...settings}>
             {products.map((item , index) => (
-              <div key={item.id}>
+              <div key={item._id}>
               <Link to="/shops">
-                <img src={urls[index]} alt={item.alt} className="img" />
+                <img src={`http://localhost:5000/${item.coverImageURL}`} alt={item.alt} className="img" />
                 </Link>
-                <h6 className="description fw-bold">{item.data().title}</h6>
-                <h6 className="description ">{item.data().dis}</h6>
-                <h6 className="description fw-bold">{item.data().prize}</h6>
+                <h6 className="description fw-bold">{item.title}</h6>
+                <h6 className="description ">{item.dis}</h6>
+                <h6 className="description fw-bold">{item.price}₹</h6>
               </div>
             ))}
           </Slider>

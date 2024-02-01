@@ -10,33 +10,15 @@ import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js.js";
 import { addToCart } from "../../../../Redux/Slice/CartSlice.js";
 import { Link } from "react-router-dom";
-import { useFirebase } from "../../../../Creatcontext/Firebase.js";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useAuth } from "../../../../Creatcontext/DataBackend.js";
 
 const Shop = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [urls, setUrls] = useState([]);
-  const firebase = useFirebase();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productsData = await firebase.productlist();
-      setProducts(productsData.docs);
-
-      const imageUrls = await Promise.all(
-        productsData.docs.map(async (product) => {
-          const imageUrl = product.data().imageUrl;
-          const imageUrlDownloaded = await firebase.downloadurl(imageUrl);
-          return imageUrlDownloaded;
-        })
-      );
-
-      setUrls(imageUrls);
-    };
-
-    fetchProducts();
-  }, [firebase]);
+  const { products } = useAuth();
 
   const [priceRange, setPriceRange] = useState([0, 25000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -44,9 +26,7 @@ const Shop = () => {
   const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
-  const uniqueTitles = [
-    ...new Set(products.map((item) => item?.data()?.title)),
-  ];
+  const uniqueTitles = [...new Set(products.map((item) => item?.title))];
   const dispatch = useDispatch();
 
   const handleSliderChange = (value) => {
@@ -91,28 +71,10 @@ const Shop = () => {
     if (item && selectedCategories.length === 0) {
       return true;
     }
-    return item && selectedCategories.includes(item?.data()?.title);
+    return item && selectedCategories.includes(item?.title);
   });
 
-  const filteredUrls = urls.filter((_, index) => {
-    return (
-      selectedCategories.length === 0 ||
-      (products[index] &&
-        selectedCategories.includes(products[index]?.data()?.title))
-    );
-  });
-
-  const loader = (index) => {
-    return urls[index] ? null : (
-      <div className="">
-        <Skeleton height={250} width={250} count={5} />
-      </div>
-    );
-  };
-
-  const handleImageLoad = (index) => {
-    setUrls((prevUrls) => [...prevUrls, index]);
-  };
+  console.log("filteredCards", filteredCards);
 
   return (
     <section>
@@ -122,7 +84,7 @@ const Shop = () => {
             <h4 className="fw-bold mb-5 mt-5 text-uppercase">CATEGORIES</h4>
             {uniqueTitles.map((title, ind) => (
               <div key={ind} className="chackbox_div pb-3">
-                <div key={ind}>
+                <div key={ind} className="text-capitalize">
                   <input
                     type="checkbox"
                     id={`checkbox-${ind}`}
@@ -139,7 +101,7 @@ const Shop = () => {
               </div>
             ))}
 
-            <div >
+            <div>
               <h4 className="fw-bold mb-4 mt-5  text-uppercase">PRICE</h4>
               <p>
                 Price:Min: ₹{priceRange[0]} - Max: ₹{priceRange[1]}
@@ -154,7 +116,7 @@ const Shop = () => {
               />
             </div>
           </div>
-          <div className="col-12 col-md-9 col-lg-10 p-2">
+          <div className="col-12 col-md-9 col-lg-10 p-2 text-capitalize">
             <div className="container">
               <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
                 {filteredCards.map((item, index) => (
@@ -162,44 +124,33 @@ const Shop = () => {
                     <div className="card shadow rounded-4">
                       <div className="img_div">
                         <div className="image-container">
-                          <Link to={`/products/${item && item.data()?.id}`}>
-                            <SkeletonTheme
-                              baseColor="#fff"
-                              highlightColor="#bb9e8e"
-                            >
-                              {loader(index)}
-                              <img
-                                src={filteredUrls[index]}
-                                className="card-img-top"
-                                alt="/"
-                                height={250}
-                                width={200}
-                                onLoad={() => handleImageLoad(index)}
-                              />
-                            </SkeletonTheme>
+                          <Link to={`/products/${item && item._id}`}>
+                            <img
+                              src={`http://localhost:5000/${item.coverImageURL}`}
+                              className="card-img-top"
+                              alt="/"
+                              height={250}
+                              width={200}
+                            />
                           </Link>
                         </div>
                         <div className="icons">
                           <div className="wishlist_icon">
                             <FavoriteBorderIcon
-                              onClick={(e) =>
-                                HandalWishlist(item && item.data())
-                              }
+                              onClick={(e) => HandalWishlist(item && item)}
                               className="fs-3"
                             />
                           </div>
                           <div className="zoom_icon">
                             <ZoomInIcon
                               className="fs-3"
-                              onClick={(e) =>
-                                openProductModal(item && item.data())
-                              }
+                              onClick={(e) => openProductModal(item && item)}
                             />
                           </div>
                           <div className="cart_icon">
                             <ShoppingCartIcon
                               className="fs-3"
-                              onClick={(e) => HandalCart(item && item.data())}
+                              onClick={(e) => HandalCart(item && item)}
                             />
                           </div>
                         </div>
@@ -215,20 +166,21 @@ const Shop = () => {
                         Added to Cart!
                       </div>
                       <div className="card-body">
-                        <h5 className="card-title">
-                          {item && item.data()?.title}
-                        </h5>
+                        <h5 className="card-title">{item && item.title}</h5>
                         <p className=" m-0 mb-1 text-danger fw-bold">
-                          {item && item.data()?.inStock ? (
-                            item.data().inStock
-                          ) : (
-                            <span className="out-of-stock">Out of Stock</span>
-                          )}
+                            <span className="m-0 mb-1 text-danger fw-bold">
+                              {item.stock > 0 ? (
+                                ""
+                              ) : (
+                                <span className="out-of-stock">
+                                  Out of Stock
+                                </span>
+                              )}
+                            </span>
+                        
                         </p>
-                        <p className="card-text m-0 mb-1">
-                          {item && item.data()?.dis}
-                        </p>
-                        <h4>{item && item.data()?.prize}</h4>
+                        <p className="card-text m-0 mb-1">{item && item.dis}</p>
+                        <h4>{item && item.price}₹</h4>
                       </div>
                     </div>
                   </div>
