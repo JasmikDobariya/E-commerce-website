@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import "./Shop.css";
@@ -10,20 +10,14 @@ import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../../../Redux/Slice/WishlistSlice.js.js";
 import { addToCart } from "../../../../Redux/Slice/CartSlice.js";
 import { Link } from "react-router-dom";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { useAuth } from "../../../../Creatcontext/DataBackend.js";
+import { ToastContainer, toast } from "react-toastify";
 
 const Shop = () => {
-  // const [products, setProducts] = useState([]);
-  const [urls, setUrls] = useState([]);
-
   const { products } = useAuth();
 
   const [priceRange, setPriceRange] = useState([0, 25000]);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [showNotification, setShowNotification] = useState(false);
-  const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const uniqueTitles = [...new Set(products.map((item) => item?.title))];
@@ -33,16 +27,10 @@ const Shop = () => {
     setPriceRange(value);
   };
 
-  const showNotificationMessage = () => {
-    setShowNotification(true);
-
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 2000);
-  };
-
   const HandalWishlist = (item) => {
-    showNotificationMessage();
+    toast.success("Add Product in WishList", {
+      position: "top-left",
+    });
     dispatch(addItemToWishlist(item));
   };
 
@@ -54,17 +42,11 @@ const Shop = () => {
     setSelectedProduct(null);
   };
 
-  const addedincartmassge = () => {
-    setaddedincart(true);
-
-    setTimeout(() => {
-      setaddedincart(false);
-    }, 2000);
-  };
-
   const HandalCart = (item) => {
     dispatch(addToCart(item));
-    addedincartmassge();
+    toast.success("Add Product in WishList", {
+      position: "top-left",
+    });
   };
 
   const filteredCards = products.filter((item) => {
@@ -74,11 +56,9 @@ const Shop = () => {
     return item && selectedCategories.includes(item?.title);
   });
 
-  console.log("filteredCards", filteredCards);
-
   return (
     <section>
-      <div className="container">
+      <div className="container container-lg container-md container-sm">
         <div className="row">
           <div className="col-12 col-md-3 col-lg-2 p-0">
             <h4 className="fw-bold mb-5 mt-5 text-uppercase">CATEGORIES</h4>
@@ -118,7 +98,7 @@ const Shop = () => {
           </div>
           <div className="col-12 col-md-9 col-lg-10 p-2 text-capitalize">
             <div className="container">
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-4">
+              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
                 {filteredCards.map((item, index) => (
                   <div className="col" key={index}>
                     <div className="card shadow rounded-4">
@@ -155,29 +135,22 @@ const Shop = () => {
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`notification ${
-                          showNotification ? "show" : ""
-                        }`}
-                      >
-                        Added to wishlist!
+                      <div>
+                        <ToastContainer />
                       </div>
-                      <div className={`addtocart ${addedincart ? "show" : ""}`}>
-                        Added to Cart!
+                      <div>
+                        <ToastContainer />
                       </div>
                       <div className="card-body">
                         <h5 className="card-title">{item && item.title}</h5>
                         <p className=" m-0 mb-1 text-danger fw-bold">
-                            <span className="m-0 mb-1 text-danger fw-bold">
-                              {item.stock > 0 ? (
-                                ""
-                              ) : (
-                                <span className="out-of-stock">
-                                  Out of Stock
-                                </span>
-                              )}
-                            </span>
-                        
+                          <span className="m-0 mb-1 text-danger fw-bold">
+                            {item.stock > 0 ? (
+                              ""
+                            ) : (
+                              <span className="out-of-stock">Out of Stock</span>
+                            )}
+                          </span>
                         </p>
                         <p className="card-text m-0 mb-1">{item && item.dis}</p>
                         <h4>{item && item.price}₹</h4>

@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <section>
-      <div className="container">
+      <div className="container container-lg container-md container-sm">
         <div className="d-flex justify-content-between align-items-center main_div">
           <div className="fs-2 fw-bold text-black">
             <Link to="/" className="logo_div">
@@ -53,10 +53,10 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
-          <div className="menu-icon" onClick={toggleMenu}>
+          <div className="menu-icon" onClick={toggleMenu} onKeyDown={toggleMenu} role="button" aria-expanded={menuOpen}>
             {menuOpen ? <CancelIcon /> : <MenuIcon />}
           </div>
-          <ul className={`list_div ${menuOpen ? "open" : ""}`}>
+          <nav  className={`list_div ${menuOpen ? "open" : ""}`}>
             {options.map((option, index) => (
               <li
                 key={index}
@@ -82,7 +82,7 @@ const Navbar = () => {
                 )}
               </li>
             ))}
-          </ul>
+          </nav>
           <div className="d-flex gap-5 svg_div">
             <div>
               <Link to="/wishlist">

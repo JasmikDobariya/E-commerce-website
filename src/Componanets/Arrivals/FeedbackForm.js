@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import "./FeedbackForm.css";
 import Rating from "@mui/material/Rating";
 import { TextareaAutosize } from "@mui/material";

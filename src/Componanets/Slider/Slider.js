@@ -33,10 +33,10 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="image-slider">
+    <div className="image-slider  ">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="slider-image">
+          <div key={index} className="slider-image ">
             <img
               src={slide.image}
               alt={`Slider ${index}`}

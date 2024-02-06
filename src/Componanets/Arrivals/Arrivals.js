@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Arrivals.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
@@ -8,14 +8,12 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItemToWishlist } from "../../Redux/Slice/WishlistSlice.js";
 import { addToCart } from "../../Redux/Slice/CartSlice.js";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { useAuth } from "../../Creatcontext/DataBackend.js";
 
 const Arrivals = () => {
-  const [showNotification, setShowNotification] = useState(false);
-  const [addedincart, setaddedincart] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const { products } = useAuth();
@@ -31,22 +29,10 @@ const Arrivals = () => {
 
   const dispatch = useDispatch();
 
-  const showNotificationMessage = () => {
-    setShowNotification(true);
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 2000);
-  };
-
-  const addedincartmassge = () => {
-    setaddedincart(true);
-    setTimeout(() => {
-      setaddedincart(false);
-    }, 2000);
-  };
-
   const HandalWishlist = (item) => {
-    showNotificationMessage();
+    toast.success("SuccessFully Add in WishList",{
+      position: "top-left"
+      });
     dispatch(addItemToWishlist(item));
   };
 
@@ -59,10 +45,11 @@ const Arrivals = () => {
   };
 
   const HandalCart = (item) => {
+    toast.success("SuccessFully Add in Cart", {
+      position: "top-left",
+    });
     dispatch(addToCart(item));
-    addedincartmassge();
   };
-
 
   return (
     <section className="text-capitalize">
@@ -79,21 +66,20 @@ const Arrivals = () => {
         </div>
       </div>
       <div className="container">
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-5">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-sm-2 g-md-3  g-lg-5">
           {products.slice(0, 8).map((item, index) => (
             <div className="col" key={index}>
               <div className="card">
                 <div className="img_div">
                   <div className="image-container">
                     <Link to={`/products/${item._id}`}>
-                      
-                        <img
-                          src={`http://localhost:5000/${item.coverImageURL}`}
-                          className="card-img-top"
-                          alt="/"
-                          height={250}
-                          width={200}
-                        />
+                      <img
+                        src={`http://localhost:5000/${item.coverImageURL}`}
+                        className="card-img-top"
+                        alt="/"
+                        height={250}
+                        width={200}
+                      />
                     </Link>
                   </div>
                   <div className="icons">
@@ -118,19 +104,15 @@ const Arrivals = () => {
                     </div>
                   </div>
                 </div>
-                <div
-                  className={`notification ${showNotification ? "show" : ""}`}
-                >
-                  Added to wishlist!
+                <div>
+                  <ToastContainer  />
                 </div>
-                <div className={`addtocart ${addedincart ? "show" : ""}`}>
-                  Added to Cart!
+                <div>
+                  <ToastContainer />
                 </div>
                 <div className="card-body">
-                  <h5 className="card-title">{item.title || <Skeleton />}</h5>
-                  <p className="card-text m-0 mb-1">
-                    {item.dis || <Skeleton count={5} />}
-                  </p>
+                  <h5 className="card-title">{item.title}</h5>
+                  <p className="card-text m-0 mb-1">{item.dis}</p>
 
                   <h4>{item.price}₹</h4>
                 </div>
@@ -146,8 +128,11 @@ const Arrivals = () => {
           </Link>
         </div>
       )}
-      <div className="itemstock_div mb-5">
+      <div className="itemstock mb-5">
         <div className="container">
+      <div className="itemstock_div ">
+      <img src="../../.././public/promo.095c8408.png" alt="" />
+
           <div className="stock_div">
             <h5 className="stock_titel">NEWS AND INSPIRATION</h5>
             <h1 className="stock_dis">NEW ARRIVALS</h1>
@@ -178,6 +163,8 @@ const Arrivals = () => {
             </div>
           </div>
         </div>
+        </div>
+
       </div>
       {selectedProduct && (
         <ProductModal products={selectedProduct} onClose={closeProductModal} />
@@ -187,5 +174,3 @@ const Arrivals = () => {
 };
 
 export default Arrivals;
-
-

@@ -5,6 +5,8 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
+import {  toast } from "react-toastify";
+
 
 const ProductModal = ({ products, onClose }) => {
   const [Counter, setCounter] = useState(1);
@@ -48,8 +50,10 @@ const ProductModal = ({ products, onClose }) => {
         price: products.price,
         quantity: Counter,
       };
-      console.log("Item to be added to cart:", item);
       dispatch(addToCart(item));
+      toast.success("SuccessFully Add in Cart ",{
+        position: "top-left"
+        });
     } catch (error) {
       console.error("Error adding item to cart:", error);
     }

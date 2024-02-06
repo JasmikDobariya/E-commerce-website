@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Wishlist.css";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -7,6 +7,7 @@ import { addToCart } from "../../../../Redux/Slice/CartSlice";
 import { deleteItemFromWishlist } from "../../../../Redux/Slice/WishlistSlice.js";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const Wishlist = () => {
   const wishlist = useSelector((state) => state.wishlist);
@@ -20,6 +21,7 @@ const Wishlist = () => {
   };
 
   const addCartItem = (item) => {
+    toast.success("SuccessFully Add in Cart");
     dispatch(addToCart(item));
   };
 
@@ -69,6 +71,7 @@ const Wishlist = () => {
                         >
                           <ShoppingCartIcon /> Add to Cart
                         </button>
+                       
                         <Link
                           to="/buy_now"
                           onClick={(e) => {
@@ -89,7 +92,11 @@ const Wishlist = () => {
                           className="delete_icon ms-4 "
                         />
                       </td>
+                      <div>
+                        <ToastContainer  />
+                        </div>
                     </tr>
+                    
                   ))
                 ) : (
                   <tr>

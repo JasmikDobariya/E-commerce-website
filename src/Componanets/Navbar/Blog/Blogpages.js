@@ -23,7 +23,8 @@ const Blogpages = () => {
     {
       id: 3,
       title: "Modular Bed vs Normal Bed",
-      content: "When you  buy modular bed online  or other traditional beds, you have one aim- to get a peaceful night's slumber. The choice of bed plays a significant role in converging comfort and style. Let's look at the  modular bed Vs normal bed  differences and why  modular beds  stand out in this blog.",
+      content:
+        "When you  buy modular bed online  or other traditional beds, you have one aim- to get a peaceful night's slumber. The choice of bed plays a significant role in converging comfort and style. Let's look at the  modular bed Vs normal bed  differences and why  modular beds  stand out in this blog.",
       date: "2023-02-20",
       imageUrl:
         "https://www.perimtec.com/wp-content/uploads/2021/01/deck-stain-featured.jpg",
@@ -31,8 +32,8 @@ const Blogpages = () => {
   ];
 
   return (
-    <section className="blog-container container py-3">
-      <h2 className="blog-heading text-center pb-4">Latest Blog Posts</h2>
+    <section className="container py-3">
+      <h2 className="text-center pb-4">Latest Blog Posts</h2>
       <div className="row">
         {blogPosts.map((post) => (
           <div key={post.id} className="col-md-6 col-lg-4 mb-4">
@@ -47,7 +48,7 @@ const Blogpages = () => {
               <div className="card-body">
                 <h3 className="card-title py-2">{post.title}</h3>
                 <p className="card-date mb-2">Published on {post.date}</p>
-                <p className="card-text py-3">{post.content}</p>
+                <p className=" py-3">{post.content}</p>
               </div>
             </div>
           </div>

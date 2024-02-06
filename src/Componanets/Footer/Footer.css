@@ -5,7 +5,8 @@
 }
 
 .form-control {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
+    background-color: #ffffff9e!important;
 }
 
 .footer_hr {

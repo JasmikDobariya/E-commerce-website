@@ -1,5 +1,6 @@
 import React from "react";
 import "./Blog.css";
+import { Link } from "react-router-dom";
 
 const Blog = () => {
   const blogs = [
@@ -50,9 +51,9 @@ const Blog = () => {
                   <div className="card-body">
                     <h6 className="card-title">{blog.date}</h6>
                     <h5 className="card-title">{blog.title}</h5>
-                    <a href="/">
+                    <Link to="/blogs">
                       <h6 className="card-text">{blog.dis}</h6>
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

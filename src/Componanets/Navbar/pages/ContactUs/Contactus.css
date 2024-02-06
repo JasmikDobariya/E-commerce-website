@@ -1,7 +1,7 @@
 .form_div {
     display: flex !important;
     flex-direction: column;
-     max-width: 600px; 
+    max-width: 600px;
     width: 100%;
 }
 
@@ -10,7 +10,28 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-  }
+
+}
+
+.bg_img {
+    background-image: url('https://atulhost.com/wp-content/uploads/2019/03/ecommerce.jpg');
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    z-index: -1;
+    position: absolute; 
+
+
+}
+
+.bg_blur {
+    transform: rotateX(0deg) !important;
+    background-color: rgba(244, 238, 235, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 20px #57b7dd;
+}
 
 .emil_div {
     margin-right: 120px;
@@ -31,16 +52,34 @@
 
 .mass_btn {
     padding: 15px;
-    width: 180px;
+    width: 280px;
     font-size: 16px;
     font-weight: 500;
-    background-color: #bd744c;
+    background-color: #0b0b0b;
     border: none !important;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 .mass_btn:hover {
-    color: white;
-    background-color: transparent rgb(1, 1, 1) !important;
+    color: rgb(0, 0, 0);
+    background-color: rgb(81, 152, 178) !important;
     transition: 0.5s all linear;
+}
+
+@media screen and (max-width: 768px) {
+    .contect_div {
+        text-align: left;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .mass_btn {
+        padding: 10px;
+        width: 150px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #0b0b0b;
+        border: none !important;
+        color: rgb(255, 255, 255);
+    }
 }

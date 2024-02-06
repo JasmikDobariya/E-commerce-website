@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "./Buy_Now.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link, useLocation } from "react-router-dom";

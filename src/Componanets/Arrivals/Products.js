@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import "./Products.css";
