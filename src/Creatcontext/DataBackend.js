@@ -4,53 +4,49 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState("");
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(""); // Set initial user state to null
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+      // Fetch user data after setting token
+      fetchUserData(storedToken);
+    }
+  }, []);
 
   const storeTokenInLS = (serverToken) => {
     setToken(serverToken);
-    return localStorage.setItem("token", serverToken);
+    localStorage.setItem("token", serverToken);
+    // Fetch user data after setting token
+    fetchUserData(serverToken);
+  };
+
+  const fetchUserData = async (token) => {
+    try {
+      const response = await fetch(`http://localhost:5000/user/userdetiles`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response?.ok) {
+        const data = await response.json();
+        setUser(data?.userData);
+      } else {
+        console.error("Error fetching user data");
+      }
+    } catch (error) {
+      console.log("userDetails Error", error);
+    }
   };
 
   const LogoutUser = () => {
     setToken("");
+    setUser(""); 
     localStorage.removeItem("token");
   };
-
-  useEffect(() => {
-    const checkAuthStatus = async () => {
-      const storedToken = localStorage.getItem("token");
-
-      if (storedToken) {
-        setToken(storedToken);
-
-        try {
-          const response = await fetch(
-            `http://localhost:5000/user/userdetiles`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${storedToken}`,
-              },
-            }
-          );
-
-          if (response.ok) {
-            const data = await response.json();
-            setUser(data.userData);
-          } else {
-            console.error("Error fetching user data");
-          }
-        } catch (error) {
-          console.log("userDetails Error", error);
-        }
-      }
-    };
-
-    checkAuthStatus();
-  }, []);
-
- 
 
   useEffect(() => {
     const getProductDataMongo = async () => {
@@ -70,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, storeTokenInLS, LogoutUser, user, products }}
+      value={{ isLoggedIn, storeTokenInLS, LogoutUser, user, products , fetchUserData }}
     >
       {children}
     </AuthContext.Provider>

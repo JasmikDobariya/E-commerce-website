@@ -5,7 +5,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/Slice/CartSlice";
-import {  toast } from "react-toastify";
+import {  ToastContainer, toast } from "react-toastify";
 
 
 const ProductModal = ({ products, onClose }) => {
@@ -40,9 +40,12 @@ const ProductModal = ({ products, onClose }) => {
   const dispatch = useDispatch();
 
   const addCartItem = async () => {
+    toast?.success("SuccessFully Add in Cart ",{
+      position: "top-left"
+    });
     try {
       const item = {
-        id: products._id,
+        _id: products?._id,
         title: products.title,
         dis: products.dis,
         coverImageURL: products.coverImageURL,
@@ -50,10 +53,8 @@ const ProductModal = ({ products, onClose }) => {
         price: products.price,
         quantity: Counter,
       };
+      
       dispatch(addToCart(item));
-      toast.success("SuccessFully Add in Cart ",{
-        position: "top-left"
-        });
     } catch (error) {
       console.error("Error adding item to cart:", error);
     }
@@ -112,6 +113,7 @@ const ProductModal = ({ products, onClose }) => {
           </div>
         </div>
       </div>
+    <ToastContainer />
     </div>
   );
 };

@@ -13,6 +13,8 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log("cart" , cart)
+
   const deleteItem = (index) => {
     dispatch(deleteItemFromCart(index));
   };

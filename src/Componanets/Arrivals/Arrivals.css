@@ -16,6 +16,7 @@
 .card-text,
 .img_div {
     cursor: pointer;
+    color: #000000 !important;
 
 }
 
@@ -34,7 +35,7 @@
 
 .card:hover .card-text {
     transform: scale(1.1);
-    color: #bd744c;
+    color: #bd744c !important;
     transition: transform 0.3s ease;
     font-weight: 600;
     font-family: Arial, Helvetica, sans-serif;

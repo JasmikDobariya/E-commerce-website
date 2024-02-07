@@ -24,7 +24,6 @@ const Blog = () => {
     },
   ];
 
-  
   return (
     <section>
       <div className="container">
@@ -61,10 +60,11 @@ const Blog = () => {
           })}
         </div>
         <div className="text-center pt-5 mb-5">
-          <button className=" btn"> view more </button>
+          <Link to="/blogs">
+            <button className=" btn"> view more </button>
+          </Link>
         </div>
       </div>
-      
     </section>
   );
 };

@@ -1,3 +1,5 @@
+// LoginPage.js
+
 import React, { useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
@@ -5,12 +7,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../Creatcontext/DataBackend.js";
 
 const LoginPage = () => {
-  const { storeTokenInLS } = useAuth();
-  const { isLoggedIn } = useAuth();
-  const { LogoutUser } = useAuth();
-  const { user } = useAuth();
-
-  console.log("user" , user)
+  const { storeTokenInLS, fetchUserData } = useAuth();
+  const { isLoggedIn, LogoutUser, user } = useAuth();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -40,8 +38,8 @@ const LoginPage = () => {
 
       if (response.ok) {
         const res_data = await response.json();
-        storeTokenInLS(res_data.token);
-
+        storeTokenInLS(res_data?.token);
+        await fetchUserData(); 
         setFormData({
           email: "",
           password: "",
@@ -64,7 +62,8 @@ const LoginPage = () => {
 
       if (response.ok) {
         const res_data = await response.json();
-        storeTokenInLS(res_data.token);
+        storeTokenInLS(res_data?.token);
+        await fetchUserData(); 
 
         setFormData({
           email: "",
@@ -89,7 +88,7 @@ const LoginPage = () => {
       <div className="loginpage_style"></div>
       {isLoggedIn ? (
         <div className="w-25">
-          <p className="p-2 fs-4 fw-bold text-capitalize">Welcome: {user && user?.userName}</p>
+          <p className="p-2 fs-4 fw-bold text-capitalize">Welcome: {user && user.userName}</p>
           <div className="pb-2 ">
             <button className="battn fw-bold" onClick={logoutUser}>
               Logout
