@@ -82,7 +82,7 @@ const Arrivals = () => {
                         height={250}
                         width={200}
                         data-aos="flip-left"
-                        data-aos-duration="3000"
+                        data-aos-duration="1500"
                       />
                     </Link>
                   </div>
