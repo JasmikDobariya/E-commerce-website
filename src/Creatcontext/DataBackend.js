@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch(`http://localhost:5000/user/userdetiles`, {
+      const response = await fetch(`https://server-ecommerce-two.vercel.app/user/userdetiles`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const getProductDataMongo = async () => {
-      await fetch(`http://localhost:5000/user/productshow`)
+      await fetch(`https://server-ecommerce-two.vercel.app/user/productshow`)
         .then((response) => response.json())
         .then((data) => {
           setProducts(data);

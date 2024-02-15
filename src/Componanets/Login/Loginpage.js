@@ -30,7 +30,7 @@ const LoginPage = () => {
     e.preventDefault();
     console.log("signing up user ...");
     try {
-      const response = await fetch(`http://localhost:5000/user/signup`, {
+      const response = await fetch(`https://server-ecommerce-two.vercel.app/user/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -54,7 +54,7 @@ const LoginPage = () => {
   const loginUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/user/signin`, {
+      const response = await fetch(`https://server-ecommerce-two.vercel.app/user/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

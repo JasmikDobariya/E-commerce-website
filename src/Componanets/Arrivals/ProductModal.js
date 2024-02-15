@@ -65,7 +65,7 @@ const ProductModal = ({ products, onClose }) => {
       <div className="modal_content">
         <div className="modal_left">
           <img
-            src={`http://localhost:5000/${products.coverImageURL}`}
+            src={`https://server-ecommerce-two.vercel.app/${products.coverImageURL}`}
             alt={products.title}
           />
         </div>

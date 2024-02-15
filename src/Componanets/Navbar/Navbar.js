@@ -53,10 +53,16 @@ const Navbar = () => {
               </div>
             </Link>
           </div>
-          <div className="menu-icon" onClick={toggleMenu} onKeyDown={toggleMenu} role="button" aria-expanded={menuOpen}>
+          <div
+            className="menu-icon"
+            onClick={toggleMenu}
+            onKeyDown={toggleMenu}
+            role="button"
+            aria-expanded={menuOpen}
+          >
             {menuOpen ? <CancelIcon /> : <MenuIcon />}
           </div>
-          <nav  className={`list_div ${menuOpen ? "open" : ""}`}>
+          <nav className={`list_div ${menuOpen ? "open" : ""}`}>
             {options.map((option, index) => (
               <li
                 key={index}
@@ -70,13 +76,18 @@ const Navbar = () => {
                   )}
                 </span>
                 {option.opt.length > 0 && (
-                  <div className="dropdown-content">
+                  <div className="dropdown-content   ">
                     {option.opt.map((subOption, subIndex) => (
-                      <button key={subIndex} className="option-button">
-                        <Link to={`/${subOption.toLowerCase()}`}>
-                          {subOption}
-                        </Link>
-                      </button>
+                      <div key={subIndex} className=" rounded-3 btn_center">
+                        <div
+                          
+                          className="option-button  "
+                        >
+                          <Link to={`/${subOption.toLowerCase()}`}>
+                            {subOption}
+                          </Link>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 )}

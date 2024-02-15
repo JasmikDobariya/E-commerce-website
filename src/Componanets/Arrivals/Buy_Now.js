@@ -86,7 +86,7 @@ const Buy_Now = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/user/orders", {
+      const response = await fetch("https://server-ecommerce-two.vercel.app/user/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

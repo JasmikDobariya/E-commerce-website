@@ -74,7 +74,7 @@ const Arrivals = () => {
                   <div className="image-container">
                     <Link to={`/products/${item._id}`}>
                       <img
-                        src={`http://localhost:5000/${item.coverImageURL}`}
+                        src={`https://server-ecommerce-two.vercel.app/${item.coverImageURL}`}
                         className="card-img-top"
                         alt="/"
                         height={250}
