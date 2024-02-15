@@ -30,9 +30,9 @@ const Arrivals = () => {
   const dispatch = useDispatch();
 
   const HandalWishlist = (item) => {
-    toast.success("SuccessFully Add in WishList", {
-      position: "top-left",
-    });
+    toast.success("SuccessFully Add in WishList",{
+      position: "top-left"
+      });
     dispatch(addItemToWishlist(item));
   };
 
@@ -56,9 +56,7 @@ const Arrivals = () => {
       <div className="container">
         <div className="d-grid justify-content-center align-items-center">
           <span className="text-center">
-            <h3 className="titel" data-aos="fade-down">
-              New Arrivals
-            </h3>
+            <h3 className="titel" data-aos="fade-down">New Arrivals</h3>
             <p className="text-muted pb-4" data-aos="flip-left">
               Check out our new furniture collection! Cozy sofa, fancy chair,
               wooden casket, and many more. The new collection brings an
@@ -81,8 +79,7 @@ const Arrivals = () => {
                         alt="/"
                         height={250}
                         width={200}
-                        data-aos="flip-left"
-                        data-aos-duration="1500"
+                        data-aos="fade-down-right"
                       />
                     </Link>
                   </div>
@@ -109,7 +106,7 @@ const Arrivals = () => {
                   </div>
                 </div>
                 <div>
-                  <ToastContainer />
+                  <ToastContainer  />
                 </div>
                 <div>
                   <ToastContainer />
@@ -134,46 +131,41 @@ const Arrivals = () => {
       )}
       <div className="itemstock mb-5">
         <div className="container">
-          <div className="itemstock_div ">
-            {/* <img src="../../.././public/promo.095c8408.png" alt="" data-aos="fade-down-left" /> */}
+      <div className="itemstock_div ">
+      {/* <img src="../../.././public/promo.095c8408.png" alt="" data-aos="fade-down-left" /> */}
 
-            <div className="stock_div">
-              <h5 className="stock_titel" data-aos="fade-right">
-                NEWS AND INSPIRATION
-              </h5>
-              <h1 className="stock_dis" data-aos="zoom-in">
-                NEW ARRIVALS
-              </h1>
-              <div className="border_div mt-4"></div>
-              {Stock.map((item, index) => {
-                return (
-                  <div key={index} className="stock_item text-capitalize">
-                    <h5 className="stock_days" data-aos="zoom-in-up">
-                      {item.days} <p>days</p>
-                    </h5>
-                    <h5 className="stock_hours" data-aos="zoom-in-down">
-                      {item.hours} <p>hours</p>
-                    </h5>
-                    <h5 className="stock_mins" data-aos="zoom-in-up">
-                      {item.mins} <p>mins</p>
-                    </h5>
-                    <h5 className="stock_secs" data-aos="zoom-in-down">
-                      {item.secs} <p>secs</p>
-                    </h5>
-                  </div>
-                );
-              })}
-              <div className="d-flex gap-3">
-                <h2 data-aos="zoom-out">
-                  <del>$140.56</del>
-                </h2>
-                <h1 className="fw-bolder" data-aos="zoom-out-up">
-                  $70
-                </h1>
-              </div>
+          <div className="stock_div">
+            <h5 className="stock_titel" data-aos="fade-right">NEWS AND INSPIRATION</h5>
+            <h1 className="stock_dis"  data-aos="zoom-in">NEW ARRIVALS</h1>
+            <div className="border_div mt-4"></div>
+            {Stock.map((item, index) => {
+              return (
+                <div key={index} className="stock_item text-capitalize">
+                  <h5 className="stock_days" data-aos="zoom-in-up">
+                    {item.days} <p>days</p>
+                  </h5>
+                  <h5 className="stock_hours" data-aos="zoom-in-down">
+                    {item.hours} <p>hours</p>
+                  </h5>
+                  <h5 className="stock_mins" data-aos="zoom-in-up">
+                    {item.mins} <p>mins</p>
+                  </h5>
+                  <h5 className="stock_secs" data-aos="zoom-in-down">
+                    {item.secs} <p>secs</p>
+                  </h5>
+                </div>
+              );
+            })}
+            <div className="d-flex gap-3">
+              <h2 data-aos="zoom-out">
+                <del>$140.56</del>
+              </h2>
+              <h1 className="fw-bolder" data-aos="zoom-out-up">$70</h1>
             </div>
           </div>
         </div>
+        </div>
+
       </div>
       {selectedProduct && (
         <ProductModal products={selectedProduct} onClose={closeProductModal} />
