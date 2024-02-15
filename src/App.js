@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -21,9 +21,18 @@ import Categories from "./Componanets/Navbar/Shop/Categories/Categories";
 import Loginpage from "./Componanets/Login/Loginpage";
 import Buy_Now from "./Componanets/Arrivals/Buy_Now";
 import Products from "./Componanets/Arrivals/Products";
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
 
 
 function App() {
+  useEffect(() => {
+    AOS.init({
+      duration: 1500, // default animation duration
+      once: true, // whether animation should happen only once - while scrolling down
+      
+    });
+  }, []);
   return (
     <Router>
       <AppContent />

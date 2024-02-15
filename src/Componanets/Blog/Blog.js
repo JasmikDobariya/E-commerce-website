@@ -29,8 +29,8 @@ const Blog = () => {
       <div className="container">
         <div className="d-grid justify-content-center align-items-center">
           <span className="text-center">
-            <h1 className="titel">From Our Blogs</h1>
-            <p className="text-muted pb-4">
+            <h1 className="titel" data-aos="zoom-in">From Our Blogs</h1>
+            <p className="text-muted pb-4" data-aos="zoom-in-up">
               Design your home interior story! Here are the latest trends, tips,
               and design tricks to help you out.
             </p>
@@ -40,18 +40,19 @@ const Blog = () => {
           {blogs.map((blog, index) => {
             return (
               <div className="col" key={index}>
-                <div className="card h-100 text-center">
+                <div className="card h-100 text-center" data-aos="zoom-in-down">
                   <img
                     src={blog.img}
                     className="card-img-top"
                     alt="/"
                     height={250}
+                    data-aos="zoom-in-left"
                   />
-                  <div className="card-body">
-                    <h6 className="card-title">{blog.date}</h6>
-                    <h5 className="card-title">{blog.title}</h5>
+                  <div className="card-body" data-aos="zoom-in-right">
+                    <h6 className="card-title" data-aos="zoom-out">{blog.date}</h6>
+                    <h5 className="card-title" data-aos="zoom-out-up">{blog.title}</h5>
                     <Link to="/blogs">
-                      <h6 className="card-text">{blog.dis}</h6>
+                      <h6 className="card-text" data-aos="zoom-out-down">{blog.dis}</h6>
                     </Link>
                   </div>
                 </div>
@@ -59,9 +60,9 @@ const Blog = () => {
             );
           })}
         </div>
-        <div className="text-center pt-5 mb-5">
+        <div className="text-center pt-5 mb-5" >
           <Link to="/blogs">
-            <button className=" btn"> view more </button>
+            <button className=" btn" data-aos="zoom-out-right"> view more </button>
           </Link>
         </div>
       </div>

@@ -59,8 +59,8 @@ const FAQ = () => {
       <div className="container py-5">
         <div className="row">
           <div className="col-md-3">
-            <h2>FAQ</h2>
-            <p className="pb-5">
+            <h2 data-aos="fade-up">FAQ</h2>
+            <p className="pb-5" data-aos="fade-down">
               Successful brands get into the mind slowly. A blurb in a magazine.
               A mention in a newspaper. A comment from a friend. A display in a
               retail
@@ -68,12 +68,14 @@ const FAQ = () => {
             <ul className="list-group title-list">
               {faqtitel[0].titel.map((title, index) => (
                 <li
+                data-aos="fade-right"
                   key={index}
                   className={`list-group-item title-list-item ${
                     activeTitle === index ? "active" : ""
-                  }`}
+                  }` }
                 >
                   <h4
+                  data-aos="fade-up"
                     onClick={() => handleClickTitle(index)}
                     className={`mb-0 ${activeTitle === index ? "text-white" : ""}`}
                   >
@@ -90,9 +92,9 @@ const FAQ = () => {
                 className={`detail-section ${activeTitle === index ? "active" : ""}`}
                 id={`faqDetail${index}`}
               >
-                <h4>{title}</h4>
-                <h6>{faqtitel[0].about[index]}</h6>
-                <p>{faqtitel[0].dis[index]}</p>
+                <h4 data-aos="flip-left">{title}</h4>
+                <h6 data-aos="flip-right">{faqtitel[0].about[index]}</h6>
+                <p data-aos="flip-left">{faqtitel[0].dis[index]}</p>
               </div>
             ))}
           </div>

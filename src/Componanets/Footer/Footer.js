@@ -37,24 +37,35 @@ const Footer = () => {
 
   return (
     <>
-      <div>
-        <h3 className="titel text-center pb-3">Follow us on Instagram</h3>
-      </div>
-      <div className="no-gutters row pb-5">
+      {/* <div>
+        <h3 className="titel text-center pb-3" data-aos="flip-left">Follow us on Instagram</h3>
+      </div> */}
+      {/* <div className="no-gutters row pb-5">
         {img.map((img, i) => {
           return (
-            <div className="col-6 col-sm-4 col-md-2 p-0 m-0" key={i}>
-              <img className="w-100" src={img} alt="/" height={250} />
+            <div
+              className="col-6 col-sm-4 col-md-2 p-0 m-0"
+              key={i}
+              data-aos="zoom-in"
+            >
+              <img
+                className="w-100"
+                src={img}
+                alt="/"
+                height={250}
+              />
             </div>
           );
         })}
-      </div>
+      </div> */}
       <footer className="footer_div">
         <div className="container  ">
-          <div className="justify-content-between row">
+          {/* <div className="justify-content-between row">
             <div className="col-md-5 col-xl-5 mt-5">
-              <h5 className="text-white">Many desktop publishing</h5>
-              <p className="text_muted my-3">
+              <h5 className="text-white" data-aos="zoom-in" >
+                Many desktop publishing
+              </h5>
+              <p className="text_muted my-3" data-aos="fade-down-right">
                 Do you want to receive exclusive email offers? Subscribe to our
                 newsletter! You will receive a unique promo code which gives you
                 a 20% discount on all our products in 10 minutes.
@@ -67,21 +78,27 @@ const Footer = () => {
                 type="email"
                 placeholder="Enter Your E-mail"
                 className="mr-3 border-0 form-control"
+                data-aos="flip-left"
               />
-              <button className="fw-bold btn_sub ">Subscribe</button>
+              <button className="fw-bold btn_sub " data-aos="flip-left">
+                Subscribe
+              </button>
             </div>
-          </div>
+          </div> */}
           <hr className="footer_hr" />
           <div className="my-4 justify-content-between row">
             <div className="d-flex flex-column justify-content-between col-md-3 col-xl-5 ">
               <div className="footer_titel">
                 <h1 className="text-white">Jasmin</h1>
-                <p className="text-white">
+                <p className="text-white" data-aos="fade-right">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
                   dolorum ut nemo odit soluta saepe libero
                 </p>
               </div>
-              <div className="mt-5 d-flex gap-3 social_icon ">
+              <div
+                className="mt-5 d-flex gap-3 social_icon "
+                data-aos="fade-up"
+              >
                 <a href="/">
                   <GoogleIcon className="fs-3 social_div text-white" />
                 </a>
@@ -102,14 +119,21 @@ const Footer = () => {
                   <div key={sectionIndex} className="col-12 col-sm-12 col-md-4">
                     <div className="flex-section">
                       {section.titel.map((title, titleIndex) => (
-                        <div key={titleIndex} className="flex-item ">
-                          <h5 className="fw-bold fs-4 text-uppercase mb-3 text-white">
+                        <div key={titleIndex} className="flex-item  ">
+                          <h5
+                            className="fw-bold fs-4 text-uppercase mb-3 text-white"
+                            data-aos="flip-up"
+                          >
                             {title}
                           </h5>
                           {section.tool
                             .slice(titleIndex * 4, titleIndex * 4 + 4)
                             .map((tool, toolIndex) => (
-                              <h6 key={toolIndex} className="mb-3 footer_tool ">
+                              <h6
+                                key={toolIndex}
+                                className="mb-3 footer_tool "
+                                data-aos="zoom-in"
+                              >
                                 {tool}
                               </h6>
                             ))}

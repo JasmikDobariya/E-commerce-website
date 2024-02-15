@@ -59,18 +59,18 @@ const Contactus = () => {
 
   return (
     <section>
-      <div className="bg_img"></div>
+      <div className="bg_img" data-aos="zoom-in"></div>
       <div className="container contect_div">
         <div className="d-flex flex-column justify-content-center bg_blur border rounded-5 p-lg-5 p-md-4 p-3">
-          <h2 className="text-center text-uppercase">Contact Us</h2>
-          <h4 className="py-3 text-center text-uppercase">
+          <h2 className="text-center text-uppercase" data-aos="fade-up">Contact Us</h2>
+          <h4 className="py-3 text-center text-uppercase" data-aos="fade-down">
             If you have any questions, please fill out the form
           </h4>
 
-          <form className="form_div gap-3" onSubmit={handleSubmit}>
+          <form className="form_div gap-3" onSubmit={handleSubmit} >
             <div className="row  ">
               <div className="col-md-6 w-100">
-                <label className="fs-5 fw-bold pb-1 ">Name</label>
+                <label className="fs-5 fw-bold pb-1 "  data-aos="flip-left">Name</label>
                 <input
                   className="form-control"
                   type="text"
@@ -79,12 +79,13 @@ const Contactus = () => {
                   onChange={handleInputChange}
                   placeholder="Name"
                   required
+                  data-aos="flip-right"
                 />
               </div>
             </div>
             <div className="row mt-3">
               <div className="col-md-6  ">
-                <label className="fs-5 fw-bold pb-1 ">Email</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="flip-up">Email</label>
                 <input
                   className="form-control"
                   type="email"
@@ -93,10 +94,11 @@ const Contactus = () => {
                   placeholder="Email"
                   onChange={handleInputChange}
                   required
+                  data-aos="zoom-in"
                 />
               </div>
               <div className="col-md-6 mt-3 mt-md-0">
-                <label className="fs-5 fw-bold pb-1 ">Phone Number</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-up">Phone Number</label>
                 <input
                   className="form-control"
                   type="text"
@@ -106,12 +108,13 @@ const Contactus = () => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   required
+                  data-aos="zoom-in-down"
                 />
               </div>
             </div>
             <div className="row mt-3">
               <div className="col-md-12">
-                <label className="fs-5 fw-bold pb-1 ">Your Message</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-left">Your Message</label>
                 <textarea
                   name="message"
                   className="form-control massaged-text"
@@ -120,12 +123,13 @@ const Contactus = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   required
+                  data-aos="zoom-in-right"
                 />
               </div>
             </div>
             <div className="row mt-3">
               <div className="col-md-12 col-lg-12 col-12 text-center">
-                <button type="submit" className="mass_btn ">
+                <button type="submit" className="mass_btn "  data-aos="zoom-out">
                   Send Message
                 </button>
               </div>

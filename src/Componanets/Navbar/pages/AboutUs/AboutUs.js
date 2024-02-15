@@ -26,15 +26,15 @@ const AboutUs = () => {
   return (
     <div className="container">
       <div className="py-4 text-center">
-        <h2>About Us</h2>
+        <h2 data-aos="fade-down">About Us</h2>
       </div>
       <div className="about-container">
         <div className="about-text">
           {aboutus.map((item, index) => (
             <div className="about-item" key={index}>
-              <h3 className="pb-4  about_head">{item.title}</h3>
-              <h4 className="pb-3 m-0">{item.dis}</h4>
-              <p className="pb-3 m-0">{item.about}</p>
+              <h3 className="pb-4  about_head" data-aos="fade-right">{item.title}</h3>
+              <h4 className="pb-3 m-0" data-aos="fade-down">{item.dis}</h4>
+              <p className="pb-3 m-0" data-aos="fade-up">{item.about}</p>
             </div>
           ))}
         </div>
@@ -44,12 +44,14 @@ const AboutUs = () => {
             alt="about 1"
             height={450}
             width={600}
+            data-aos="flip-left"
           />
           <img
             src="https://www.ardellsmoving.com/wp-content/uploads/2017/06/iStock-514455761-2.jpg"
             alt="about 2"
             height={450}
             width={600}
+            data-aos="flip-left"
           />
         </div>
       </div>

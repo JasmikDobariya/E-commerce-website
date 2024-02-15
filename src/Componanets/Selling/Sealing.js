@@ -10,8 +10,8 @@ const Sealing = () => {
       <div className="container">
         <div className="d-grid justify-content-center align-items-center">
           <div className="text-center">
-            <h1 className="titel">Top Selling Products</h1>
-            <p className="text-muted pb-4">
+            <h1 className="titel" data-aos="fade-up">Top Selling Products</h1>
+            <p className="text-muted pb-4" data-aos="fade-down">
               These furniture sets will become an essential part of an ecosystem
               of elements in your home. Your domestic space will easily embrace
               these tables, chairs, and bookshelves.
@@ -21,12 +21,12 @@ const Sealing = () => {
         <div className="container">
           <div className="row ">
             <div className="col-12 col-md-6 overflow-hidden ">
-              <div className="spring_div ">
+              <div className="spring_div " data-aos="fade-down-right">
                 <div className="text_div p-5 fw-bold">
-                  <h6 className="">ALL NEW</h6>
-                  <h2>SPRING THINGS</h2>
-                  <div className="line_div"></div>
-                  <h6 className="my-3">Save up to 30%</h6>
+                  <h6 className="" data-aos="fade-right">ALL NEW</h6>
+                  <h2 data-aos="fade-left">SPRING THINGS</h2>
+                  <div className="line_div" data-aos="fade-up-right"></div>
+                  <h6 className="my-3" data-aos="fade-up-left">Save up to 30%</h6>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@ const Sealing = () => {
               <div className="row ">
                 <div className="col-12 col-md-6 ~Q">
                   <a href="/node_modules">
-                    <div className="online_div ">
+                    <div className="online_div " data-aos="flip-left">
                       <div className="text-end">
                         <h6 className="fw-bold">Online Exclusive</h6>
                         <p>
@@ -43,7 +43,7 @@ const Sealing = () => {
                       </div>
                     </div>
                   </a>
-                  <div className="lamp_div">
+                  <div className="lamp_div" data-aos="flip-up">
                     <div className="sale_div">
                       <h6 className="fw-bold text-uppercase mb-0 text-white">
                         70% SALE
@@ -51,15 +51,15 @@ const Sealing = () => {
                     </div>
                   </div>
                 </div>
-                <div className="col-12 col-md-6">
-                  <div className="lamp_div">
+                <div className="col-12 col-md-6" >
+                  <div className="lamp_div"  data-aos="flip-down">
                     <div className="sale_div">
                       <h6 className="fw-bold text-uppercase mb-0 text-white">
                         70% SALE
                       </h6>
                     </div>
                   </div>
-                  <div className="sofa_div">
+                  <div className="sofa_div" data-aos="flip-right">
                     <div className="">
                       <h6 className="fw-bold">Online Exclusive</h6>
                       <p>
@@ -78,7 +78,7 @@ const Sealing = () => {
         <div className="h-100 container">
           <div className="row">
             <div className="col-12 col-md-4">
-              <div className="d-flex align-items-center justify-content-center info__item1">
+              <div className="d-flex align-items-center justify-content-center info__item1" data-aos="zoom-in">
                 <img src={imgshiping} alt="/" className="m-3" />
                 <div>
                   <h5 className="fw-bold text-uppercase">free shipping</h5>
@@ -86,7 +86,7 @@ const Sealing = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4" data-aos="zoom-in-up">
               <div className="d-flex align-items-center info__item2">
                 <img src={imghelp} alt="/" className="m-3" />
                 <div>
@@ -95,7 +95,7 @@ const Sealing = () => {
                 </div>
               </div>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-12 col-md-4" data-aos="zoom-in-down">
               <div className="d-flex align-items-center justify-content-center info__item3">
                 <img src={imgrefund} alt="/" className="m-3" />
                 <div>

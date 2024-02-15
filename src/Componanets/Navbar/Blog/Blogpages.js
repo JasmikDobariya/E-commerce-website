@@ -39,6 +39,7 @@ const Blogpages = () => {
           <div key={post.id} className="col-md-6 col-lg-4 mb-4">
             <div className="card">
               <img
+              data-aos="flip-left"
                 width={500}
                 height={400}
                 src={post.imageUrl}
@@ -46,9 +47,9 @@ const Blogpages = () => {
                 className="card-img-top"
               />
               <div className="card-body">
-                <h3 className="card-title py-2">{post.title}</h3>
-                <p className="card-date mb-2">Published on {post.date}</p>
-                <p className=" py-3">{post.content}</p>
+                <h3 className="card-title py-2" data-aos="fade-up">{post.title}</h3>
+                <p className="card-date mb-2" data-aos="fade-down">Published on {post.date}</p>
+                <p className=" py-3" data-aos="fade-up">{post.content}</p>
               </div>
             </div>
           </div>

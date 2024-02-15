@@ -26,7 +26,7 @@
   .online_div {
     margin-bottom: 30px;
     width: 100%;
-    background-image: url(https://avatars.mds.yandex.net/i?id=6e7c77e9e111fdc78184263e91d89b72316568a1-10132791-images-thumbs&n=13);
+    background-image: url('https://avatars.mds.yandex.net/i?id=6e7c77e9e111fdc78184263e91d89b72316568a1-10132791-images-thumbs&n=13');
     height: 208px;
     background-repeat: no-repeat;
     display: flex;
@@ -41,7 +41,7 @@
   .lamp_div {
     margin-bottom: 30px;
     width: 100%;
-    background-image: url(https://www.sahilsarthak.com/Images/Katran%20Tables/Conch%20Shell%20Katran%20lamp.jpg);
+    background-image: url('https://www.sahilsarthak.com/Images/Katran%20Tables/Conch%20Shell%20Katran%20lamp.jpg');
     height: 208px;
     background-repeat: no-repeat;
     display: flex;
@@ -54,7 +54,7 @@
   .salemain_div {
     margin-bottom: 30px;
     width: 100%;
-    background-image: url(https://i.pinimg.com/736x/91/2d/0d/912d0d7127a29dc883e6c9e008c5b592.jpg);
+    background-image: url('https://i.pinimg.com/736x/91/2d/0d/912d0d7127a29dc883e6c9e008c5b592.jpg');
     height: 208px;
     background-repeat: no-repeat;
     display: flex;
@@ -67,7 +67,7 @@
   .sofa_div {
     margin-bottom: 30px;
     width: 100%;
-    background-image: url(https://avatars.mds.yandex.net/i?id=740e43da65470e5af0f8dbb75c74dfef930cbf8f-10207868-images-thumbs&n=13);
+    background-image: url('https://avatars.mds.yandex.net/i?id=740e43da65470e5af0f8dbb75c74dfef930cbf8f-10207868-images-thumbs&n=13');
     height: 208px;
     background-repeat: no-repeat;
     display: flex;

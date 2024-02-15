@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./Slider.css";
 import Slider from "react-slick";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
+ 
 
 const ImageSlider = () => {
   const slides = [
@@ -24,6 +25,9 @@ const ImageSlider = () => {
     },
   ];
 
+
+
+
   const settings = {
     dots: false,
     infinite: true,
@@ -36,21 +40,22 @@ const ImageSlider = () => {
     <div className="image-slider  ">
       <Slider {...settings}>
         {slides.map((slide, index) => (
-          <div key={index} className="slider-image ">
+          <div key={index} className="slider-image " >
             <img
               src={slide.image}
               alt={`Slider ${index}`}
               height={550}
               width={1450}
+              data-aos="fade-left"
             />
-            <span className="Slider_div">
-              <p className=" fw-bold m-1">{slide.text[0]}</p>
-              <h2 className="fw-light">{slide.text[1]}</h2>
-              <h1> {slide.text[2]}</h1>
+            <span className="Slider_div"   >
+              <p className=" fw-bold m-1" data-aos="fade-up">{slide.text[0]}</p>
+              <h2 className="fw-light" data-aos="fade-down">{slide.text[1]}</h2>
+              <h1 data-aos="fade-right"> {slide.text[2]}</h1>
               <Link to="/shops" className="btn yellow">
-                <div>
-                  <span className="bt">Learn More</span>
-                  <ArrowForwardIcon className="ion-icon" />
+                <div data-aos="fade-down">
+                  <span className="bt" data-aos="fade-down">Learn More</span>
+                  <ArrowForwardIcon className="ion-icon " data-aos="fade-down" />
                 </div>
               </Link>
             </span>
