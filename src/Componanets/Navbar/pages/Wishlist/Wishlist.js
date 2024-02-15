@@ -14,8 +14,6 @@ const Wishlist = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("wishlist", wishlist);
-
   const deleteItem = (index) => {
     dispatch(deleteItemFromWishlist(index));
   };
@@ -48,7 +46,7 @@ const Wishlist = () => {
                     <tr key={index}>
                       <td className="d-flex align-items-center">
                         <img
-                          src={`http://localhost:5000${item?.coverImageURL}`}
+                          src={`https://server-ecommerce-two.vercel.app${item?.coverImageURL}`}
                           alt="/"
                           width={150}
                           height={120}

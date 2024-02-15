@@ -53,7 +53,7 @@ const Products = () => {
           <div className="col-md-6">
             <div className="modal-left">
               <img
-                src={`http://localhost:5000${product?.coverImageURL}`}
+                src={`https://server-ecommerce-two.vercel.app${product?.coverImageURL}`}
                 alt="/"
                 className="img-fluid"
               />

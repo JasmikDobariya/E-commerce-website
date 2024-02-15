@@ -40,7 +40,7 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
           <tr> 
               <td className="d-flex align-items-center py-3">
                 <img
-                  src={`http://localhost:5000${cardItem?.coverImageURL}`}
+                  src={`https://server-ecommerce-two.vercel.app${cardItem?.coverImageURL}`}
                   alt="/"
                   width={150}
                   height={120}
