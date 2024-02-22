@@ -15,16 +15,12 @@ const Products = () => {
   const { id } = useParams();
   const { products } = useAuth();
 
-  console.log("_id", id);
-
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [selectedCardItem, setSelectedCardItem] = useState(null);
   const [feedbackEntries, setFeedbackEntries] = useState([]);
   const navigate = useNavigate();
 
   const product = products.find((product) => product._id === id);
-
-  console.log("feedbackEntries", feedbackEntries);
 
   const toggleFeedbackForm = (cardItem) => {
     setSelectedCardItem(cardItem);

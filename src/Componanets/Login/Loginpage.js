@@ -28,7 +28,6 @@ const LoginPage = () => {
 
   const createUser = async (e) => {
     e.preventDefault();
-    console.log("signing up user ...");
     try {
       const response = await fetch(`https://server-ecommerce-two.vercel.app/user/signup`, {
         method: "POST",

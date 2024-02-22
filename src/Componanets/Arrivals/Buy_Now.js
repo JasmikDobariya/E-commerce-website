@@ -105,7 +105,6 @@ const Buy_Now = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData);
       } else {
         console.error("Error saving order");
       }

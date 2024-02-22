@@ -25,7 +25,6 @@ const FeedbackForm = ({ onClose, cardItem, onFormSubmit }) => {
     e.preventDefault();
     onClose();
     onFormSubmit(formData);
-    console.log(formData);
   };
 
 

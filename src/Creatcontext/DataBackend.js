@@ -61,8 +61,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const isLoggedIn = !!token;
-  console.log("token", token);
-  console.log("isLoggedIn", isLoggedIn);
 
   return (
     <AuthContext.Provider

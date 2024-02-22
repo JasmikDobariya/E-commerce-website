@@ -11,8 +11,6 @@ import {  ToastContainer, toast } from "react-toastify";
 const ProductModal = ({ products, onClose }) => {
   const [Counter, setCounter] = useState(1);
 
-  console.log("products" ,products)
-
   const navigate = useNavigate();
 
   const inc = () => {

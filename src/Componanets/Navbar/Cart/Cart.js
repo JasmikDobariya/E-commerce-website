@@ -13,8 +13,6 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("cart" , cart)
-
   const deleteItem = (index) => {
     dispatch(deleteItemFromCart(index));
   };
@@ -130,7 +128,6 @@ const Cart = () => {
                 <h5 className="fw-1">{`${subtotal}`}₹</h5>
               </div>
             </div>
-            {console.log("subtotal", quantities)}
             <Link
               to="/buy_now"
               onClick={(e) => {
