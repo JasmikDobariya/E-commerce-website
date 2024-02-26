@@ -35,11 +35,14 @@ const Contactus = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://server-ecommerce-two.vercel.app/user/contact_us`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `https://server-ecommerce-two.vercel.app/user/contact_us`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       if (response.ok) {
         setFormData({
           name: "",
@@ -49,9 +52,7 @@ const Contactus = () => {
         });
       }
 
-      toast.success("Submit SuccessFully", {
-        position: "top-right",
-      });
+      toast.success("Submit SuccessFully");
     } catch (error) {
       console.log("message", error);
     }
@@ -62,15 +63,19 @@ const Contactus = () => {
       <div className="bg_img" data-aos="zoom-in"></div>
       <div className="container contect_div">
         <div className="d-flex flex-column justify-content-center bg_blur border rounded-5 p-lg-5 p-md-4 p-3">
-          <h2 className="text-center text-uppercase" data-aos="fade-up">Contact Us</h2>
+          <h2 className="text-center text-uppercase" data-aos="fade-up">
+            Contact Us
+          </h2>
           <h4 className="py-3 text-center text-uppercase" data-aos="fade-down">
             If you have any questions, please fill out the form
           </h4>
 
-          <form className="form_div gap-3" onSubmit={handleSubmit} >
+          <form className="form_div gap-3" onSubmit={handleSubmit}>
             <div className="row  ">
               <div className="col-md-6 w-100">
-                <label className="fs-5 fw-bold pb-1 "  data-aos="flip-left">Name</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="flip-left">
+                  Name
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -85,7 +90,9 @@ const Contactus = () => {
             </div>
             <div className="row mt-3">
               <div className="col-md-6  ">
-                <label className="fs-5 fw-bold pb-1 " data-aos="flip-up">Email</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="flip-up">
+                  Email
+                </label>
                 <input
                   className="form-control"
                   type="email"
@@ -98,7 +105,9 @@ const Contactus = () => {
                 />
               </div>
               <div className="col-md-6 mt-3 mt-md-0">
-                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-up">Phone Number</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-up">
+                  Phone Number
+                </label>
                 <input
                   className="form-control"
                   type="text"
@@ -114,7 +123,9 @@ const Contactus = () => {
             </div>
             <div className="row mt-3">
               <div className="col-md-12">
-                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-left">Your Message</label>
+                <label className="fs-5 fw-bold pb-1 " data-aos="zoom-in-left">
+                  Your Message
+                </label>
                 <textarea
                   name="message"
                   className="form-control massaged-text"
@@ -129,7 +140,7 @@ const Contactus = () => {
             </div>
             <div className="row mt-3">
               <div className="col-md-12 col-lg-12 col-12 text-center">
-                <button type="submit" className="mass_btn "  data-aos="zoom-out">
+                <button type="submit" className="mass_btn " data-aos="zoom-out">
                   Send Message
                 </button>
               </div>
