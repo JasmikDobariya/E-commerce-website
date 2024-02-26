@@ -4,6 +4,8 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Creatcontext/DataBackend";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const calculateWishlistSubtotal = (wishlist) => {
   return wishlist.reduce((total, item) => {
@@ -63,9 +65,9 @@ const Buy_Now = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!user) {
-      navigate("/login");
-    }
+    // if (!user) {
+    //   navigate("/login");
+    // }
 
     const requiredFields = [
       "firstName",
@@ -81,7 +83,7 @@ const Buy_Now = () => {
     );
 
     if (isAnyFieldEmpty) {
-      alert("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.");
       return;
     }
 
@@ -108,6 +110,7 @@ const Buy_Now = () => {
       } else {
         console.error("Error saving order");
       }
+      toast.success("Order saved successfully");
       setFormData({
         firstName: "",
         lastName: "",
@@ -292,6 +295,9 @@ const Buy_Now = () => {
                 >
                   Submit
                 </button>
+                <div>
+                  <ToastContainer  />
+                </div>
               </form>
             )}
             
